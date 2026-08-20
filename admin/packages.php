@@ -2,6 +2,8 @@
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
 require_once 'includes/PackageFactory.php';
+require_once 'includes/PackageValidator.php';
+require_once 'includes/PackageSearchQueryBuilder.php';
 requireRole('admin');
 
 // ---------- Delete ----------
@@ -41,13 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_package'])) {
     $agency_id = $_POST['agency_id'] ?? null;
     $post_edit_id = $_POST['edit_id'] ?? null;
 
-    if (empty($title) || empty($location) || $price === '' || empty($description) || empty($agency_id)) {
-        $error = "Please fill in all required fields.";
-        $show_form = true;
-        $edit_id = $post_edit_id;
-        $package = $_POST;
-    } elseif (!is_numeric($price) || $price < 0) {
-        $error = "Price must be a valid positive number.";
+    $error = PackageValidator::validate($_POST);
+    if ($error !== '') {
         $show_form = true;
         $edit_id = $post_edit_id;
         $package = $_POST;
@@ -77,26 +74,10 @@ $search = trim($_GET['search'] ?? '');
 $filter_type = $_GET['filter_type'] ?? 'all';
 $filter_agency = $_GET['filter_agency'] ?? 'all';
 
-$query = "SELECT p.*, a.company_name FROM packages p JOIN agencies a ON p.agency_id = a.id WHERE 1=1";
-$params = [];
+$built = PackageSearchQueryBuilder::build($search, $filter_type, $filter_agency);
 
-if ($search !== '') {
-    $query .= " AND (p.title LIKE ? OR p.location LIKE ?)";
-    $params[] = "%$search%";
-    $params[] = "%$search%";
-}
-if ($filter_type !== 'all') {
-    $query .= " AND p.type = ?";
-    $params[] = $filter_type;
-}
-if ($filter_agency !== 'all') {
-    $query .= " AND p.agency_id = ?";
-    $params[] = $filter_agency;
-}
-$query .= " ORDER BY p.created_at DESC";
-
-$stmt = $pdo->prepare($query);
-$stmt->execute($params);
+$stmt = $pdo->prepare($built['query']);
+$stmt->execute($built['params']);
 $all_packages = $stmt->fetchAll();
 
 // All agencies (for filter dropdown, including non-verified so old data still shows a name)

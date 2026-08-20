@@ -6,26 +6,24 @@ require_once '../admin/includes/observer/BookingObserver.php';
 require_once '../admin/includes/observer/BookingSubject.php';
 require_once '../admin/includes/observer/AgencyStatsObserver.php';
 require_once '../admin/includes/observer/AdminStatsObserver.php';
+require_once '../admin/includes/BookingRequestValidator.php';
 
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+$error = BookingRequestValidator::validate(
+    $_SERVER['REQUEST_METHOD'],
+    isLoggedIn(),
+    $_SESSION['user_role'] ?? null,
+    $_POST['package_id'] ?? null
+);
+
+if ($error !== '') {
+    echo json_encode(['success' => false, 'message' => $error]);
     exit();
 }
 
-if (!isLoggedIn() || $_SESSION['user_role'] !== 'traveler') {
-    echo json_encode(['success' => false, 'message' => 'You must be logged in as a traveler to book a tour.']);
-    exit();
-}
-
-$package_id = $_POST['package_id'] ?? null;
+$package_id = $_POST['package_id'];
 $traveler_id = $_SESSION['user_id'];
-
-if (!$package_id) {
-    echo json_encode(['success' => false, 'message' => 'Package ID is missing.']);
-    exit();
-}
 
 try {
     // Check if booking already exists

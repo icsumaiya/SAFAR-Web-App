@@ -8,9 +8,16 @@
     "require-dev": {
         "phpunit/phpunit": "^11.0"
     },
+    "autoload": {
+    "classmap": [
+        "admin/includes/",
+        "includes/"
+    ]
+    },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
         }
     }
+
 }

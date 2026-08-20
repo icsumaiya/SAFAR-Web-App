@@ -5,6 +5,7 @@ require_once '../admin/includes/strategy/TypeFilter.php';
 require_once '../admin/includes/strategy/LocationFilter.php';
 require_once '../admin/includes/strategy/PriceMaxFilter.php';
 require_once '../admin/includes/strategy/FilterContext.php';
+require_once '../admin/includes/ListingFilterFactory.php';
 header('Content-Type: application/json');
 
 $type = $_GET['type'] ?? 'all';
@@ -12,16 +13,7 @@ $location = $_GET['location'] ?? '';
 $max_price = $_GET['price'] ?? 5000;
 
 // Strategy: each active filter is its own class, added only if relevant
-$context = new FilterContext();
-$context->addStrategy(new PriceMaxFilter((float) $max_price));
-
-if ($type === 'tour' || $type === 'hotel') {
-    $context->addStrategy(new TypeFilter($type));
-}
-
-if (!empty($location)) {
-    $context->addStrategy(new LocationFilter($location));
-}
+$context = ListingFilterFactory::build($type, $location, $max_price);
 
 [$where, $params] = $context->buildQuery();
 

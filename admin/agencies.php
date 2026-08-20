@@ -1,23 +1,19 @@
 <?php
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
-// Command pattern classes import (নিশ্চিত করবেন এই ফাইলগুলো সঠিক পাথে আছে)
+// Command pattern classes & Factory import (নিশ্চিত করবেন এই ফাইলগুলো সঠিক পাথে আছে)
 require_once 'includes/command/Command.php';
 require_once 'includes/command/ApproveAgencyCommand.php';
 require_once 'includes/command/RejectAgencyCommand.php';
 require_once 'includes/command/UnverifyAgencyCommand.php';
+require_once 'includes/AgencyCommandFactory.php';
 requireRole('admin');
 
-// Handle agency status change using Command Pattern
+// Handle agency status change using Command Pattern via Factory
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['agency_id'])) {
     $agencyId = (int) $_POST['agency_id'];
     
-    $command = match ($_POST['action']) {
-        'verify' => new ApproveAgencyCommand($pdo, $agencyId),
-        'reject' => new RejectAgencyCommand($pdo, $agencyId),
-        'unverify' => new UnverifyAgencyCommand($pdo, $agencyId),
-        default => null,
-    };
+    $command = AgencyCommandFactory::build($_POST['action'], $pdo, $agencyId);
 
     if ($command) {
         $command->execute();
