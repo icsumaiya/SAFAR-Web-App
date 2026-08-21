@@ -1,6 +1,7 @@
 <?php
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
+require_once '../admin/includes/TravelerBookingSearchQueryBuilder.php';
 
 requireRole('traveler');
 
@@ -17,24 +18,10 @@ $upcoming_trips->execute([$user_id]);
 $upcoming_trips = $upcoming_trips->fetchColumn();
 
 // Fetch traveler's bookings with optional search
-$query = "
-    SELECT b.id as booking_id, b.status, b.booking_date, p.title, p.price, p.location, a.company_name
-    FROM bookings b
-    JOIN packages p ON b.package_id = p.id
-    JOIN agencies a ON p.agency_id = a.id
-    WHERE b.traveler_id = ?
-";
-$params = [$user_id];
+$built = TravelerBookingSearchQueryBuilder::build((int) $user_id, $search);
 
-if ($search) {
-    $query .= " AND (p.title LIKE ? OR p.location LIKE ?)";
-    $params[] = "%$search%";
-    $params[] = "%$search%";
-}
-$query .= " ORDER BY b.booking_date DESC";
-
-$stmt = $pdo->prepare($query);
-$stmt->execute($params);
+$stmt = $pdo->prepare($built['query']);
+$stmt->execute($built['params']);
 $bookings = $stmt->fetchAll();
 
 require_once '../includes/header.php';

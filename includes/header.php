@@ -16,14 +16,8 @@ if (isset($_SESSION['user_id']) && isset($pdo)) {
     $nav_avatar = $stmt->fetchColumn();
 }
 
-function nav_active($page, $current_page, $type = null, $current_type = '') {
-    // $page e path-er shesh ongsho diye match kora hocche, jemon 'admin/index.php'
-    if (substr($current_page, -strlen($page)) !== $page) return '';
-    if ($type !== null) {
-        return ($current_type === $type) ? ' active' : '';
-    }
-    return ($current_type === '') ? ' active' : '';
-}
+// NavHelper.php require করা হলো (যেখানে nav_active ফাংশনটি সংজ্ঞায়িত আছে)
+require_once __DIR__ . '/NavHelper.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

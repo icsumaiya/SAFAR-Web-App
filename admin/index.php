@@ -1,44 +1,23 @@
 <?php
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
-
-// যদি AdminFacade ক্লাস ব্যবহার করতে চান তবে এর ফাইলটি এখানে রিকোয়ার করে নিতে হবে (যেমন: require_once '../includes/AdminFacade.php';)
+require_once 'includes/AdminDashboardService.php';
 
 requireRole('admin');
 
-// Stats and Recent Bookings handled via Facade or DB queries
-// আপনি যদি AdminFacade ক্লাস ইমপ্লিমেন্ট করে থাকেন:
-/*
-$adminFacade = new AdminFacade($pdo);
-$stats = $adminFacade->getDashboardStats();
-
+$dashboardService = new AdminDashboardService($pdo);
+$stats = $dashboardService->getStats();
 $users_count = $stats['users_count'];
 $packages_count = $stats['packages_count'];
 $bookings_count = $stats['bookings_count'];
 $pending_agencies_count = $stats['pending_agencies_count'];
 $pending_bookings_count = $stats['pending_bookings_count'];
 
-$recent_bookings = $adminFacade->getRecentBookings(5);
-*/
-
-// অথবা সরাসরি কুয়েরির মাধ্যমে নিচে দেওয়া হলো:
-$users_count = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
-$packages_count = $pdo->query("SELECT COUNT(*) FROM packages")->fetchColumn();
-$bookings_count = $pdo->query("SELECT COUNT(*) FROM bookings")->fetchColumn();
-$pending_agencies_count = $pdo->query("SELECT COUNT(*) FROM agencies WHERE status = 'pending'")->fetchColumn();
-$pending_bookings_count = $pdo->query("SELECT COUNT(*) FROM bookings WHERE status = 'pending'")->fetchColumn();
-
 // Recent activity (last 5 bookings)
-$stmt = $pdo->query("SELECT b.*, u.name AS traveler_name, p.title AS package_title 
-                     FROM bookings b 
-                     JOIN users u ON b.traveler_id = u.id 
-                     JOIN packages p ON b.package_id = p.id 
-                     ORDER BY b.booking_date DESC LIMIT 5");
-$recent_bookings = $stmt->fetchAll();
+$recent_bookings = $dashboardService->getRecentBookings(5);
 
 // Recent signups (last 5 users)
-$stmt = $pdo->query("SELECT name, email, role, created_at FROM users ORDER BY created_at DESC LIMIT 5");
-$recent_users = $stmt->fetchAll();
+$recent_users = $dashboardService->getRecentUsers(5);
 
 $active = 'dashboard';
 $page_title = 'Admin Dashboard';

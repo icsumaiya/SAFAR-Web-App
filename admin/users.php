@@ -1,6 +1,8 @@
 <?php
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
+require_once 'includes/UserManagementValidator.php';
+require_once 'includes/UserSearchQueryBuilder.php';
 
 requireRole('admin');
 
@@ -10,8 +12,9 @@ $msg = '';
 // ---------- Delete user ----------
 if (isset($_GET['delete_user'])) {
     $del_id = (int)$_GET['delete_user'];
-    if ($del_id === (int)$current_admin_id) {
-        $msg = 'error:You cannot delete your own admin account.';
+    $error = UserManagementValidator::validateDelete($del_id, (int)$current_admin_id);
+    if ($error !== '') {
+        $msg = $error;
     } else {
         $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
         $stmt->execute([$del_id]);
@@ -23,12 +26,10 @@ if (isset($_GET['delete_user'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_role'], $_POST['user_id'])) {
     $uid = (int)$_POST['user_id'];
     $new_role = $_POST['new_role'];
-    $valid_roles = ['traveler', 'agency', 'admin'];
 
-    if ($uid === (int)$current_admin_id) {
-        $msg = 'error:You cannot change your own role.';
-    } elseif (!in_array($new_role, $valid_roles, true)) {
-        $msg = 'error:Invalid role selected.';
+    $error = UserManagementValidator::validateRoleChange($uid, $new_role, (int)$current_admin_id);
+    if ($error !== '') {
+        $msg = $error;
     } else {
         $stmt = $pdo->prepare("UPDATE users SET role = ? WHERE id = ?");
         $stmt->execute([$new_role, $uid]);
@@ -40,24 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_role'], $_POST
 $search = trim($_GET['search'] ?? '');
 $filter_role = $_GET['filter_role'] ?? 'all';
 
-$query = "SELECT u.*, 
-          (SELECT COUNT(*) FROM bookings bk WHERE bk.traveler_id = u.id) AS booking_count
-          FROM users u WHERE 1=1";
-$params = [];
+$built = UserSearchQueryBuilder::build($search, $filter_role);
 
-if ($search !== '') {
-    $query .= " AND (u.name LIKE ? OR u.email LIKE ?)";
-    $params[] = "%$search%";
-    $params[] = "%$search%";
-}
-if ($filter_role !== 'all') {
-    $query .= " AND u.role = ?";
-    $params[] = $filter_role;
-}
-$query .= " ORDER BY u.created_at DESC";
-
-$stmt = $pdo->prepare($query);
-$stmt->execute($params);
+$stmt = $pdo->prepare($built['query']);
+$stmt->execute($built['params']);
 $all_users = $stmt->fetchAll();
 
 $active = 'users';

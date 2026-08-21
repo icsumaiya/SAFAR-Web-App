@@ -1,37 +1,26 @@
 <?php
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
+require_once 'includes/BookingManagementHelper.php';
 
 requireRole('admin');
 
 // Handle booking status change
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['booking_action'], $_POST['booking_id'])) {
-    $baction = $_POST['booking_action'] === 'approve' ? 'approved' : 'rejected';
+    $baction = BookingManagementHelper::resolveStatus($_POST['booking_action']);
     $bid = $_POST['booking_id'];
     $stmt = $pdo->prepare("UPDATE bookings SET status = ? WHERE id = ?");
     $stmt->execute([$baction, $bid]);
-    header("Location: bookings.php?msg=updated" . (isset($_GET['status']) ? '&status=' . urlencode($_GET['status']) : ''));
+    header("Location: " . BookingManagementHelper::buildRedirectUrl($_GET['status'] ?? null));
     exit();
 }
 
 $status_filter = $_GET['status'] ?? 'all';
 
-$query = "SELECT b.*, u.name AS traveler_name, p.title AS package_title, a.company_name
-          FROM bookings b
-          JOIN users u ON b.traveler_id = u.id
-          JOIN packages p ON b.package_id = p.id
-          JOIN agencies a ON p.agency_id = a.id
-          WHERE 1=1";
-$params = [];
+$built = BookingManagementHelper::buildListQuery($status_filter);
 
-if ($status_filter !== 'all') {
-    $query .= " AND b.status = ?";
-    $params[] = $status_filter;
-}
-$query .= " ORDER BY b.booking_date DESC";
-
-$stmt = $pdo->prepare($query);
-$stmt->execute($params);
+$stmt = $pdo->prepare($built['query']);
+$stmt->execute($built['params']);
 $all_bookings = $stmt->fetchAll();
 
 // Counts for filter tabs
