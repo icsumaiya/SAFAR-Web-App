@@ -2,161 +2,125 @@
 
 ## ✈️ Modern Travel & Tour Booking Web Application
 
-SAFAR Web App is a responsive travel and tourism management platform developed using PHP, MySQL, HTML, CSS, and JavaScript.
-The application allows users to explore destinations, view travel packages, and manage bookings through a clean and user-friendly interface.
+SAFAR is a responsive travel and tourism management platform built with **PHP, MySQL, HTML, CSS, and JavaScript**. Users can explore travel packages, manage profiles, and make bookings, while admins can manage packages, users, agencies, and bookings.
 
----
+## 🛠️ Technologies
 
-# 📌 Features
+- PHP
+- MySQL
+- HTML5 / CSS3
+- JavaScript
+- XAMPP
+- PHPUnit 11
 
-## 👤 User Features
+## 📌 Main Features
 
-* User Authentication System
-* Explore Travel Destinations
-* Travel Package Details
-* User Profile Management
-* Responsive User Interface
-* Dynamic Frontend Interaction
+### 👤 User
+- Authentication
+- Explore travel packages
+- Package details
+- Booking management
+- Profile management
 
-## 🛠️ Admin Features
+### 🛠️ Admin
+- Admin dashboard
+- Package management
+- User management
+- Agency management
+- Booking management
 
-* Admin Dashboard
-* Manage Travel Packages
-* Add/Edit/Delete Packages
-* Organized Dashboard System
+## 📂 Project Structure
 
----
-
-# 🛠️ Technologies Used
-
-* PHP
-* MySQL
-* HTML5
-* CSS3
-* JavaScript
-* XAMPP
-
----
-
-# 📂 Project Structure
-
-```bash
+```text
 SAFAR-Web-App/
-│
 ├── admin/
+│   └── includes/       # Extracted and tested business logic
 ├── api/
-├── assets/
-│   ├── css/
-│   ├── images/
-│   └── js/
 ├── dashboard/
 ├── includes/
-│
-├── index.php
-├── explore.php
-├── details.php
-├── login.php
-├── signup.php
-├── profile.php
-├── package-details.php
-│
+├── assets/
+├── tests/
+│   ├── bootstrap.php
+│   └── Unit/
+├── composer.json
+├── phpunit.xml
 ├── database.sql
-├── setup.sql
-├── seed_packages.sql
-├── setup_hotels.sql
 └── README.md
 ```
 
----
+## ⚙️ Installation
 
-# ⚙️ Installation Guide
+1. Clone the repo into your XAMPP `htdocs` folder:
+   ```bash
+   git clone https://github.com/icsumaiya/SAFAR-Web-App.git
+   ```
+2. Start **Apache** and **MySQL** from the XAMPP control panel.
+3. Create a database (e.g. `safar_db`) in phpMyAdmin and import `database.sql`
+   (and `seed_packages.sql` / `setup_hotels.sql` if you want sample data).
+4. Update the DB credentials in `includes/db.php` if needed.
+5. Visit `http://localhost/SAFAR-Web-App` in your browser.
 
-## 1️⃣ Clone the Repository
+## 🧪 Software Testing
 
-```bash
-git clone https://github.com/sumaiya004-dot/SAFAR-Web-App.git
-```
----
+The project uses **PHPUnit 11** for automated unit testing.
+Business logic was extracted from page-controller files into independent classes so that the logic can be tested without running the web application or database.
 
-## 2️⃣ Move Project Folder
+### Tested Components
 
-Move the project folder into:
+- `PackageValidator`
+- `PackageSearchQueryBuilder`
+- `BookingRequestValidator`
+- `ListingFilterFactory`
+- `AgencyCommandFactory`
+- `UserManagementValidator`
+- `UserSearchQueryBuilder`
+- `BookingManagementHelper`
+- `TravelerBookingSearchQueryBuilder`
+- `AdminDashboardService`
+- `NavHelper`
+- Factory, Adapter, Strategy, Observer, Command, Facade and Singleton classes
 
-```bash
-xampp/htdocs/
-```
+### Test Result
 
----
-
-## 3️⃣ Import Database
-
-* Open phpMyAdmin
-* Create a new database
-* Import these SQL files:
-
-```bash
-database.sql
-setup.sql
-seed_packages.sql
-setup_hotels.sql
-```
-
----
-
-## 4️⃣ Start XAMPP Server
-
-Start the following services:
-
-* Apache
-* MySQL
-
----
-
-## 5️⃣ Run the Project
-
-Open your browser and visit:
-
-```bash
-http://localhost/SAFAR-Web-App
+```text
+136 tests passing
+236 assertions
+~15% overall line coverage
 ```
 
----
+**All extracted business-logic classes listed above are 100% covered.**
 
-# 🚀 Future Improvements
+### Why is overall coverage only ~15%?
 
-* Online Payment Integration
-* Email Notification System
-* Google Maps Integration
-* User Reviews & Ratings
-* Multi-language Support
-* Mobile App Version
+The coverage is calculated across the scoped backend folders:
 
----
+```text
+admin/
+api/
+includes/
+dashboard/
+```
 
-# 🤝 Contribution
+Most of the remaining uncovered lines are HTML/UI code inside PHP page-controller files, such as tables, forms, layouts, and presentation markup. These lines are not meaningful targets for unit testing.
 
-Contributions and suggestions are welcome.
+The actual business logic — validation, SQL/query building, decision-making, data transformation, and service logic — has been extracted into separate classes and fully tested.
 
-To contribute:
+Therefore, the low overall percentage is mainly caused by the large amount of HTML/presentation code included in the coverage scope, **not** by untested extracted business logic.
 
-1. Fork the repository
-2. Create a new branch
-3. Make your changes
-4. Submit a pull request
+### Running Tests
 
----
+```bash
+composer install
+php vendor/bin/phpunit
+```
 
-# 📄 License
+### Coverage Report
 
-This project is developed for educational and learning purposes.
-
----
-
-# 🙌 Acknowledgements
-
-This project is inspired by modern travel and tourism management systems and customized for educational development purposes.
-
----
-⭐ If you like this project, don't forget to give it a star on GitHub!
+```bash
+php vendor/bin/phpunit --coverage-text
+```
 
 
+## 📄 License
+
+Educational project developed for learning purposes.
