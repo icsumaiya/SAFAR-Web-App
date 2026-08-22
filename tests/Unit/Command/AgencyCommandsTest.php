@@ -8,13 +8,11 @@ final class AgencyCommandsTest extends TestCase
     {
         $agencyId = 42;
 
-        // Mock PDOStatement: isolate the command from a real DB result.
         $stmt = $this->createMock(PDOStatement::class);
         $stmt->expects($this->once())
              ->method('execute')
              ->with([$agencyId]);
 
-        // Mock PDO: isolate the command from a real database connection.
         $pdo = $this->createMock(PDO::class);
         $pdo->expects($this->once())
             ->method('prepare')
@@ -63,6 +61,44 @@ final class AgencyCommandsTest extends TestCase
         $command->execute();
     }
 
+    public function testSuspendAgencyCommandPreparesAndExecutesCorrectSql(): void
+    {
+        $agencyId = 21;
+
+        $stmt = $this->createMock(PDOStatement::class);
+        $stmt->expects($this->once())
+             ->method('execute')
+             ->with([$agencyId]);
+
+        $pdo = $this->createMock(PDO::class);
+        $pdo->expects($this->once())
+            ->method('prepare')
+            ->with($this->stringContains("status = 'suspended'"))
+            ->willReturn($stmt);
+
+        $command = new SuspendAgencyCommand($pdo, $agencyId);
+        $command->execute();
+    }
+
+    public function testActivateAgencyCommandPreparesAndExecutesCorrectSql(): void
+    {
+        $agencyId = 33;
+
+        $stmt = $this->createMock(PDOStatement::class);
+        $stmt->expects($this->once())
+             ->method('execute')
+             ->with([$agencyId]);
+
+        $pdo = $this->createMock(PDO::class);
+        $pdo->expects($this->once())
+            ->method('prepare')
+            ->with($this->stringContains("status = 'verified'"))
+            ->willReturn($stmt);
+
+        $command = new ActivateAgencyCommand($pdo, $agencyId);
+        $command->execute();
+    }
+
     public function testAllCommandsImplementCommandInterface(): void
     {
         $pdo = $this->createMock(PDO::class);
@@ -70,11 +106,12 @@ final class AgencyCommandsTest extends TestCase
         $this->assertInstanceOf(Command::class, new ApproveAgencyCommand($pdo, 1));
         $this->assertInstanceOf(Command::class, new RejectAgencyCommand($pdo, 1));
         $this->assertInstanceOf(Command::class, new UnverifyAgencyCommand($pdo, 1));
+        $this->assertInstanceOf(Command::class, new SuspendAgencyCommand($pdo, 1));
+        $this->assertInstanceOf(Command::class, new ActivateAgencyCommand($pdo, 1));
     }
 
     public function testExecutePropagatesExceptionWhenPdoThrows(): void
     {
-        // Edge case: DB failure (e.g. lost connection) must propagate, not be swallowed.
         $stmt = $this->createMock(PDOStatement::class);
         $stmt->method('execute')->willThrowException(new PDOException('DB connection lost'));
 

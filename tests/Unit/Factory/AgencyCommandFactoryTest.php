@@ -30,6 +30,20 @@ final class AgencyCommandFactoryTest extends TestCase
         $this->assertInstanceOf(UnverifyAgencyCommand::class, $command);
     }
 
+    public function testSuspendActionReturnsSuspendAgencyCommand(): void
+    {
+        $command = AgencyCommandFactory::build('suspend', $this->pdo, 5);
+
+        $this->assertInstanceOf(SuspendAgencyCommand::class, $command);
+    }
+
+    public function testActivateActionReturnsActivateAgencyCommand(): void
+    {
+        $command = AgencyCommandFactory::build('activate', $this->pdo, 5);
+
+        $this->assertInstanceOf(ActivateAgencyCommand::class, $command);
+    }
+
     public function testUnknownActionReturnsNull(): void
     {
         $command = AgencyCommandFactory::build('delete', $this->pdo, 5);
@@ -44,7 +58,7 @@ final class AgencyCommandFactoryTest extends TestCase
 
     public function testAllReturnedCommandsImplementCommandInterface(): void
     {
-        foreach (['verify', 'reject', 'unverify'] as $action) {
+        foreach (['verify', 'reject', 'unverify', 'suspend', 'activate'] as $action) {
             $command = AgencyCommandFactory::build($action, $this->pdo, 1);
             $this->assertInstanceOf(Command::class, $command);
         }

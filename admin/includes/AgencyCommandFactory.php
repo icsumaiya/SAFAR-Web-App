@@ -12,6 +12,8 @@ class AgencyCommandFactory
             'verify' => new ApproveAgencyCommand($pdo, $agencyId),
             'reject' => new RejectAgencyCommand($pdo, $agencyId),
             'unverify' => new UnverifyAgencyCommand($pdo, $agencyId),
+            'suspend' => new SuspendAgencyCommand($pdo, $agencyId),
+            'activate' => new ActivateAgencyCommand($pdo, $agencyId),
             default => null,
         };
     }

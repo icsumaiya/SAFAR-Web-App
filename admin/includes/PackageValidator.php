@@ -26,4 +26,27 @@ class PackageValidator
 
         return '';
     }
+
+    /**
+     * Simpler validation used by the agency's own "manage package" form,
+     * which does not collect an agency_id field (it's implicit from the
+     * session) and does not enforce numeric price. Extracted verbatim from
+     * dashboard/manage-package.php.
+     *
+     * @param array $data Expected keys: title, location, price, description
+     * @return string Empty string if valid, otherwise a human-readable error message.
+     */
+    public static function validateAgencyForm(array $data): string
+    {
+        $title = trim($data['title'] ?? '');
+        $location = trim($data['location'] ?? '');
+        $price = $data['price'] ?? '';
+        $description = trim($data['description'] ?? '');
+
+        if ($title === '' || $location === '' || $price === '' || $description === '') {
+            return 'Please fill in all required fields.';
+        }
+
+        return '';
+    }
 }

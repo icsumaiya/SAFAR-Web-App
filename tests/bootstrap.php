@@ -23,7 +23,13 @@ require_once SAFAR_ROOT . '/admin/includes/command/Command.php';
 require_once SAFAR_ROOT . '/admin/includes/command/ApproveAgencyCommand.php';
 require_once SAFAR_ROOT . '/admin/includes/command/RejectAgencyCommand.php';
 require_once SAFAR_ROOT . '/admin/includes/command/UnverifyAgencyCommand.php';
+require_once SAFAR_ROOT . '/admin/includes/command/SuspendAgencyCommand.php';
+require_once SAFAR_ROOT . '/admin/includes/command/ActivateAgencyCommand.php';
+
 require_once SAFAR_ROOT . '/admin/includes/AgencyCommandFactory.php';
+require_once SAFAR_ROOT . '/admin/includes/AgencySearchQueryBuilder.php';
+require_once SAFAR_ROOT . '/admin/includes/AgencyDetailsService.php';
+
 require_once SAFAR_ROOT . '/admin/includes/UserManagementValidator.php';
 require_once SAFAR_ROOT . '/admin/includes/UserSearchQueryBuilder.php';
 require_once SAFAR_ROOT . '/admin/includes/BookingManagementHelper.php';

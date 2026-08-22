@@ -6,6 +6,7 @@ require_once '../admin/includes/observer/BookingObserver.php';
 require_once '../admin/includes/observer/BookingSubject.php';
 require_once '../admin/includes/observer/AgencyStatsObserver.php';
 require_once '../admin/includes/observer/AdminStatsObserver.php';
+require_once '../admin/includes/BookingManagementHelper.php';
 requireRole('agency');
 
 $user_id = $_SESSION['user_id'];
@@ -24,7 +25,7 @@ $is_verified = $agency['status'] === 'verified';
 
 // Handle booking status updates
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['booking_id'])) {
-    $action = $_POST['action'] === 'approve' ? 'approved' : 'rejected';
+    $action = BookingManagementHelper::resolveStatus($_POST['action']);
     $booking_id = $_POST['booking_id'];
     
     // Verify this booking belongs to this agency's package

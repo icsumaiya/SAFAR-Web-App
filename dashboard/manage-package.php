@@ -1,6 +1,7 @@
 <?php
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
+require_once '../admin/includes/PackageValidator.php';
 
 requireRole('agency');
 
@@ -43,7 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     
-    if (empty($title) || empty($location) || empty($price) || empty($description)) {
+    $error = PackageValidator::validateAgencyForm($_POST);
+      if ($error === '') {
         $error = "Please fill in all required fields.";
     } else {
         if ($edit_id) {
