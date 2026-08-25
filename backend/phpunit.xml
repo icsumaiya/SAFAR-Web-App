@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory suffix=".php">admin</directory>
+            <directory suffix=".php">api</directory>
+            <directory suffix=".php">includes</directory>
+            <directory suffix=".php">dashboard</directory>
+        </include>
+        <exclude>
+            <directory>express-basic-server</directory>
+            <directory>vendor</directory>
+            <directory>assets</directory>
+            <directory>uploads</directory>
+        </exclude>
+    </source>
+</phpunit>
