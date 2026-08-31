@@ -29,6 +29,7 @@ require_once SAFAR_ROOT . '/admin/includes/command/ActivateAgencyCommand.php';
 require_once SAFAR_ROOT . '/admin/includes/AgencyCommandFactory.php';
 require_once SAFAR_ROOT . '/admin/includes/AgencySearchQueryBuilder.php';
 require_once SAFAR_ROOT . '/admin/includes/AgencyDetailsService.php';
+require_once SAFAR_ROOT . '/admin/includes/AgencyProfileValidator.php';
 
 require_once SAFAR_ROOT . '/admin/includes/UserManagementValidator.php';
 require_once SAFAR_ROOT . '/admin/includes/UserSearchQueryBuilder.php';
@@ -48,6 +49,42 @@ require_once SAFAR_ROOT . '/admin/includes/CommissionService.php';
 require_once SAFAR_ROOT . '/admin/includes/CouponValidator.php';
 require_once SAFAR_ROOT . '/admin/includes/CouponSearchQueryBuilder.php';
 require_once SAFAR_ROOT . '/admin/includes/CouponService.php';
+require_once SAFAR_ROOT . '/admin/includes/ReviewValidator.php';
+require_once SAFAR_ROOT . '/admin/includes/ReviewSearchQueryBuilder.php';
+require_once SAFAR_ROOT . '/admin/includes/ReviewService.php';
+require_once SAFAR_ROOT . '/admin/includes/NotificationService.php';
+require_once SAFAR_ROOT . '/admin/includes/AnalyticsService.php';
+require_once SAFAR_ROOT . '/admin/includes/WishlistValidator.php';
+require_once SAFAR_ROOT . '/admin/includes/WishlistService.php';
+require_once SAFAR_ROOT . '/admin/includes/InvoiceService.php';
+require_once SAFAR_ROOT . '/admin/includes/PaymentGatewayService.php';
+require_once SAFAR_ROOT . '/admin/includes/PasswordResetValidator.php';
+require_once SAFAR_ROOT . '/admin/includes/PasswordResetService.php';
+require_once SAFAR_ROOT . '/admin/includes/FeaturedPackageValidator.php';
+require_once SAFAR_ROOT . '/admin/includes/FeaturedPackageService.php';
+require_once SAFAR_ROOT . '/admin/includes/FeaturedPackageApiHandler.php';
+require_once SAFAR_ROOT . '/admin/includes/AgencySearchQueryBuilder.php';
+require_once SAFAR_ROOT . '/admin/includes/AgencyApiHandler.php';
+require_once SAFAR_ROOT . '/admin/includes/AgencyDetailsService.php';
+require_once SAFAR_ROOT . '/admin/includes/AgencyProfileApiHandler.php';
+require_once SAFAR_ROOT . '/admin/includes/AnalyticsService.php';
+require_once SAFAR_ROOT . '/admin/includes/AnalyticsApiHandler.php';   
+require_once SAFAR_ROOT . '/admin/includes/BookingDetailsService.php';
+require_once SAFAR_ROOT . '/admin/includes/BookingDetailsApiHandler.php';
+require_once SAFAR_ROOT . '/admin/includes/BookingSearchQueryBuilder.php';
+require_once SAFAR_ROOT . '/admin/includes/EmailService.php';
+require_once SAFAR_ROOT . '/admin/includes/BookingApiHandler.php';
+require_once SAFAR_ROOT . '/admin/includes/CancellationService.php';
+require_once SAFAR_ROOT . '/admin/includes/CancellationApiHandler.php';
+require_once SAFAR_ROOT . '/admin/includes/CommissionService.php';
+require_once SAFAR_ROOT . '/admin/includes/CommissionApiHandler.php';
+require_once SAFAR_ROOT . '/admin/includes/CouponService.php';
+require_once SAFAR_ROOT . '/admin/includes/CouponApiHandler.php';  
+require_once SAFAR_ROOT . '/admin/includes/NotificationService.php';
+require_once SAFAR_ROOT . '/admin/includes/NotificationApiHandler.php';
+
+
+
 
 require_once SAFAR_ROOT . '/admin/includes/facade/AdminFacade.php';
 

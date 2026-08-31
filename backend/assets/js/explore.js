@@ -64,42 +64,55 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        listings.forEach((item, index) => {
-            const card = document.createElement('div');
-            card.className = 'card fade-in';
-            // Slight delay for stagger effect
-            card.style.animationDelay = `${index * 0.05}s`;
+        // Load the traveler's saved package IDs (no-op if not logged in as
+        // a traveler) before drawing hearts, so they render in the right
+        // state on first paint instead of flipping after a beat.
+        (typeof SafarWishlist !== 'undefined' ? SafarWishlist.loadSavedIds() : Promise.resolve()).then(() => {
+            listings.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'card fade-in';
+                // Slight delay for stagger effect
+                card.style.animationDelay = `${index * 0.05}s`;
 
-            const typeLabel = item.type ? item.type.charAt(0).toUpperCase() + item.type.slice(1) : 'Tour';
-            const imgUrl = item.image_url || getFallbackImage(index);
-            
-            card.innerHTML = `
-                <div class="card-img" style="background-image: url('${imgUrl}');">
-                    <span class="card-badge">${typeLabel}</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> ${item.location}</span>
-                        <span>By SAFAR</span>
+                const typeLabel = item.type ? item.type.charAt(0).toUpperCase() + item.type.slice(1) : 'Tour';
+                const imgUrl = item.image_url || getFallbackImage(index);
+
+                card.innerHTML = `
+                    <div class="card-img" style="position: relative; background-image: url('${imgUrl}');">
+                        <span class="card-badge">${typeLabel}</span>
                     </div>
-                    <h3 class="card-title">${item.title}</h3>
-                    <p class="card-price">$${item.price_formatted}</p>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1;">
-                        ${item.description.substring(0, 100)}...
-                    </p>
-                    <div style="display: flex; gap: 10px;">
-                        <a href="package-details.php?id=${item.id}" class="btn btn-outline" style="flex: 1;">View Details</a>
-                        <a href="package-details.php?id=${item.id}" class="btn" style="flex: 1;">Book Now</a>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> ${item.location}</span>
+                            <span>By SAFAR</span>
+                        </div>
+                        <h3 class="card-title">${item.title}</h3>
+                        <p class="card-price">$${item.price_formatted}</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1;">
+                            ${item.description.substring(0, 100)}...
+                        </p>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="package-details.php?id=${item.id}" class="btn btn-outline" style="flex: 1;">View Details</a>
+                            <a href="package-details.php?id=${item.id}" class="btn" style="flex: 1;">Book Now</a>
+                        </div>
                     </div>
-                </div>
-            `;
-            exploreGrid.appendChild(card);
+                `;
+
+                // Heart button is appended via JS (not the innerHTML string
+                // above) so SafarWishlist can wire its own click handler.
+                if (typeof SafarWishlist !== 'undefined') {
+                    const cardImg = card.querySelector('.card-img');
+                    cardImg.appendChild(SafarWishlist.renderButton(item.id));
+                }
+
+                exploreGrid.appendChild(card);
+            });
+
+            // Trigger fade-in for newly added elements
+            setTimeout(() => {
+                document.querySelectorAll('#explore-grid .card.fade-in').forEach(el => el.classList.add('visible'));
+            }, 50);
         });
-
-        // Trigger fade-in for newly added elements
-        setTimeout(() => {
-            document.querySelectorAll('#explore-grid .card.fade-in').forEach(el => el.classList.add('visible'));
-        }, 50);
     }
 
     // Event Listeners

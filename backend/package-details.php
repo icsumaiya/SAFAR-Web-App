@@ -1,6 +1,8 @@
 <?php
 require_once 'includes/db.php';
+require_once 'includes/auth.php';
 require_once 'includes/header.php';
+require_once 'includes/CouponPriceHelper.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: " . BASE_URL . "/404.php");
@@ -17,6 +19,9 @@ if (!$pkg) {
     header("Location: " . BASE_URL . "/404.php");
     exit();
 }
+
+$activeCoupon = getActiveSiteWideCoupon($pdo);
+$priceInfo = applyCouponToPrice((float) $pkg['price'], $activeCoupon);
 ?>
 
 <div class="package-hero" style="position: relative; height: 500px; width: 100%; margin-bottom: 40px;">
@@ -59,9 +64,30 @@ if (!$pkg) {
 
         <!-- Right Column: Sticky Booking Card -->
         <div class="package-booking-card" style="position: sticky; top: 120px; background: white; padding: 35px; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 1px solid rgba(0,0,0,0.05);">
-            <div style="margin-bottom: 25px;">
-                <span style="font-size: 2.5rem; font-weight: 800; color: var(--text-main);">$<?php echo number_format($pkg['price'], 2); ?></span>
-                <span style="font-size: 1.1rem; color: var(--text-muted);">/ person</span>
+            <div style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: flex-start; gap: 15px;">
+                <div>
+                    <?php if ($priceInfo['has_discount']): ?>
+                        <div style="margin-bottom: 6px;">
+                            <span style="display:inline-block; background:#e11d48; color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:999px;">
+                                <?php echo (int) $priceInfo['percent_label']; ?>% OFF
+                            </span>
+                        </div>
+                        <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1.3rem; margin-right: 10px;">$<?php echo number_format($priceInfo['original'], 2); ?></span>
+                        <span style="font-size: 2.5rem; font-weight: 800; color: var(--text-main);">$<?php echo number_format($priceInfo['discounted'], 2); ?></span>
+                    <?php else: ?>
+                        <span style="font-size: 2.5rem; font-weight: 800; color: var(--text-main);">$<?php echo number_format($pkg['price'], 2); ?></span>
+                    <?php endif; ?>
+                    <span style="font-size: 1.1rem; color: var(--text-muted);">/ person</span>
+                </div>
+                <button
+                    type="button"
+                    class="wishlist-heart-btn"
+                    data-package-id="<?php echo (int) $pkg['id']; ?>"
+                    aria-label="Save to wishlist"
+                    style="flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #e2e8f0; background: var(--white); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: var(--transition);"
+                >
+                    <i class="far fa-heart"></i>
+                </button>
             </div>
             
             <div style="border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden;">
@@ -109,7 +135,12 @@ if (!$pkg) {
         
         <div style="background: var(--bg-light); padding: 15px; border-radius: 10px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
             <span style="font-weight: 600;"><?php echo htmlspecialchars($pkg['title']); ?></span>
-            <span style="font-size: 1.3rem; font-weight: 800; color: var(--primary);">$<?php echo number_format($pkg['price'], 2); ?></span>
+            <span>
+                <?php if ($priceInfo['has_discount']): ?>
+                    <span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.95rem; margin-right: 6px;">$<?php echo number_format($priceInfo['original'], 2); ?></span>
+                <?php endif; ?>
+                <span style="font-size: 1.3rem; font-weight: 800; color: var(--primary);">$<?php echo number_format($priceInfo['discounted'], 2); ?></span>
+            </span>
         </div>
 
         <form id="demo-payment-form">
@@ -138,7 +169,7 @@ if (!$pkg) {
                 </div>
             </div>
             <button type="submit" id="pay-btn" class="btn" style="width: 100%; font-size: 1.1rem; padding: 16px; font-weight: 700;">
-                <i class="fas fa-lock" style="margin-right: 8px;"></i> Pay $<?php echo number_format($pkg['price'], 2); ?>
+                <i class="fas fa-lock" style="margin-right: 8px;"></i> Pay $<?php echo number_format($priceInfo['discounted'], 2); ?>
             </button>
         </form>
         <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 15px;"><i class="fas fa-shield-alt"></i> Secure demo checkout — no real payment processed</p>
@@ -213,7 +244,7 @@ document.getElementById('demo-payment-form').addEventListener('submit', function
                 btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + data.message;
                 btn.style.background = '#ef4444';
                 setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-lock"></i> Pay $<?php echo number_format($pkg['price'], 2); ?>';
+                    btn.innerHTML = '<i class="fas fa-lock"></i> Pay $<?php echo number_format($priceInfo['discounted'], 2); ?>';
                     btn.style.background = '';
                     btn.disabled = false;
                 }, 2500);
@@ -225,6 +256,17 @@ document.getElementById('demo-payment-form').addEventListener('submit', function
             btn.disabled = false;
         });
     }, 1500);
+});
+</script>
+
+<script>
+    window.SAFAR_BASE_URL = <?php echo json_encode(BASE_URL); ?>;
+    window.SAFAR_IS_TRAVELER = <?php echo (isLoggedIn() && $_SESSION['user_role'] === 'traveler') ? 'true' : 'false'; ?>;
+</script>
+<script src="<?php echo BASE_URL; ?>/assets/js/wishlist.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    SafarWishlist.loadSavedIds().then(() => SafarWishlist.attachAll());
 });
 </script>
 

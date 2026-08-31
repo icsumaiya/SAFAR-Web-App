@@ -1,5 +1,6 @@
 <?php
 require_once 'includes/db.php';
+require_once 'includes/auth.php';
 $type = $_GET['type'] ?? '';
 $page_title = $type === 'tour' ? 'Tours' : ($type === 'hotel' ? 'Hotels' : 'Explore');
 require_once 'includes/header.php';
@@ -49,5 +50,10 @@ require_once 'includes/header.php';
     </main>
 </div>
 
+<script>
+    window.SAFAR_BASE_URL = <?php echo json_encode(BASE_URL); ?>;
+    window.SAFAR_IS_TRAVELER = <?php echo (isLoggedIn() && $_SESSION['user_role'] === 'traveler') ? 'true' : 'false'; ?>;
+</script>
+<script src="<?php echo BASE_URL; ?>/assets/js/wishlist.js"></script>
 <script src="<?php echo BASE_URL; ?>/assets/js/explore.js"></script>
 <?php require_once 'includes/footer.php'; ?>

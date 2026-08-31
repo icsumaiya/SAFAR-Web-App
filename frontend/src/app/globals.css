@@ -7,10 +7,19 @@
   --color-safar-bg: #FFF5F0;
   --color-safar-text: #212121;
   --color-safar-muted: #757575;
+  --color-safar-card: #FFFFFF;
 }
 
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--color-safar-bg);
   color: var(--color-safar-text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dark {
+  --color-safar-bg: #16181D;
+  --color-safar-text: #E8E8E8;
+  --color-safar-muted: #9CA3AF;
+  --color-safar-card: #1F2229;
 }

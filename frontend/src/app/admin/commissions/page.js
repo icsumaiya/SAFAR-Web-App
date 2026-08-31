@@ -75,7 +75,7 @@ export default function CommissionsPage() {
           {/* Stat cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {statCards.map((card) => (
-              <div key={card.label} className="bg-white rounded-xl shadow-sm border border-black/5 p-5 text-center">
+              <div key={card.label} className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-5 text-center">
                 <p className="text-xs text-safar-muted mb-1">{card.label}</p>
                 <p className="text-xl font-bold text-safar-primary">{card.value}</p>
               </div>
@@ -83,7 +83,7 @@ export default function CommissionsPage() {
           </div>
 
           {/* Commission percentage settings */}
-          <div className="bg-white rounded-xl shadow-sm border border-black/5 p-5 mb-6">
+          <div className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-5 mb-6">
             <h2 className="font-semibold mb-3">Platform Commission Rate</h2>
             <form onSubmit={savePercentage} className="flex gap-2 items-center">
               <input
@@ -110,7 +110,7 @@ export default function CommissionsPage() {
           </div>
 
           {/* By agency */}
-          <div className="bg-white rounded-xl shadow-sm border border-black/5 p-5 mb-6">
+          <div className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-5 mb-6">
             <h2 className="font-semibold mb-3">Revenue by Agency</h2>
             {data?.by_agency?.length ? (
               <table className="w-full text-sm">
@@ -139,7 +139,7 @@ export default function CommissionsPage() {
           </div>
 
           {/* Commission history */}
-          <div className="bg-white rounded-xl shadow-sm border border-black/5 p-6">
+          <div className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-6">
             <div className="flex justify-between items-center mb-4 flex-wrap gap-3">
               <h2 className="font-semibold">Commission History</h2>
               <form

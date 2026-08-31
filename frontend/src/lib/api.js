@@ -38,6 +38,14 @@ export async function apiFetch(path, options = {}) {
 
   const data = await res.json();
 
+  if (res.status === 401) {
+    logout();
+    if (typeof window !== "undefined") {
+      window.location.href = "/login";
+    }
+    throw new Error(data.error || "Session expired. Please log in again.");
+  }
+
   if (!res.ok) {
     throw new Error(data.error || "Something went wrong.");
   }

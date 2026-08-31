@@ -7,6 +7,7 @@ require_once '../../admin/includes/PaymentService.php';
 require_once '../../admin/includes/PaymentValidator.php';
 require_once '../../admin/includes/CouponService.php';
 require_once '../../admin/includes/CouponValidator.php';
+require_once '../../admin/includes/NotificationService.php';
 
 requireApiRole('admin');
 
@@ -55,6 +56,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $service->recordPayment($input);
+
+    if (($input['status'] ?? '') === 'successful') {
+        $notificationService = new NotificationService($pdo);
+        $notificationService->create(
+            'payment_successful',
+            "Payment of \${$input['amount']} recorded for booking #{$input['booking_id']}.",
+            (int) $input['booking_id']
+        );
+
+        $travelerStmt = $pdo->prepare("SELECT traveler_id FROM bookings WHERE id = ?");
+        $travelerStmt->execute([(int) $input['booking_id']]);
+        $travelerId = (int) $travelerStmt->fetchColumn();
+
+        if ($travelerId > 0) {
+            $notificationService->create(
+                'payment_successful',
+                "Your payment of \${$input['amount']} was confirmed for booking #{$input['booking_id']}.",
+                (int) $input['booking_id'],
+                'traveler',
+                $travelerId
+            );
+
+            require_once '../../admin/includes/EmailService.php';
+            $userStmt = $pdo->prepare("SELECT name, email FROM users WHERE id = ?");
+            $userStmt->execute([$travelerId]);
+            $traveler = $userStmt->fetch();
+
+            if ($traveler !== false) {
+                $emailConfigPath = '../../includes/email_config.php';
+                $emailConfig = file_exists($emailConfigPath) ? require $emailConfigPath : null;
+                (new EmailService($emailConfig, '../../logs/email.log'))->send(
+                    $traveler['email'],
+                    $traveler['name'],
+                    'Payment confirmation — SAFAR',
+                    "Hi {$traveler['name']},<br><br>We've received your payment of \${$input['amount']} for booking #{$input['booking_id']}. Thank you!"
+                );
+            }
+        }
+    }
 
     if ($appliedCoupon !== null) {
         $bookingStmt = $pdo->prepare("SELECT traveler_id FROM bookings WHERE id = ?");

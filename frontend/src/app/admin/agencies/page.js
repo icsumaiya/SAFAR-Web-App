@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { apiFetch } from "@/lib/api";
+import Link from "next/link";
 
 const badgeClass = {
   verified: "bg-green-200 text-green-800",
@@ -58,7 +59,7 @@ export default function AgenciesPage() {
       )}
 
       {/* Search / filter */}
-      <div className="bg-white rounded-xl shadow-sm border border-black/5 p-5 mb-5">
+      <div className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-5 mb-5">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -110,7 +111,7 @@ export default function AgenciesPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-black/5 p-6">
+      <div className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-6">
         <h2 className="text-lg font-semibold mb-4">All Agencies ({agencies.length})</h2>
 
         {loading ? (
@@ -141,6 +142,12 @@ export default function AgenciesPage() {
                       </span>
                     </td>
                     <td className="py-2 space-x-2">
+                      <Link
+                        href={`/admin/agencies/${agency.id}`}
+                        className="bg-safar-secondary text-white px-3 py-1 rounded text-xs inline-block"
+                      >
+                        View Profile
+                      </Link>
                       {agency.status === "pending" && (
                         <>
                           <button

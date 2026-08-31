@@ -1,12 +1,13 @@
 <?php
 require_once 'includes/db.php';
 require_once 'includes/header.php';
+require_once 'includes/CouponPriceHelper.php';
 
 // Handle search and filtering
 $search = $_GET['search'] ?? '';
 $price_max = $_GET['price_max'] ?? '';
 
-$query = "SELECT p.*, a.company_name FROM packages p JOIN agencies a ON p.agency_id = a.id WHERE 1=1";
+$query = "SELECT p.*, a.company_name FROM packages p JOIN agencies a ON p.agency_id = a.id WHERE p.status = 'approved'";
 $params = [];
 
 if ($search) {
@@ -25,6 +26,8 @@ $query .= " ORDER BY p.created_at DESC";
 $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $packages = $stmt->fetchAll();
+
+$activeCoupon = getActiveSiteWideCoupon($pdo);
 ?>
 
 <section class="hero" style="margin-top: -110px; padding-top: 180px;">
@@ -128,7 +131,20 @@ $packages = $stmt->fetchAll();
                             <span>By SAFAR</span>
                         </div>
                         <h3 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--text-main);"><?php echo htmlspecialchars($pkg['title']); ?></h3>
-                        <p style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 15px;">$<?php echo number_format($pkg['price'], 2); ?></p>
+                        <?php $priceInfo = applyCouponToPrice((float) $pkg['price'], $activeCoupon); ?>
+                        <?php if ($priceInfo['has_discount']): ?>
+                            <div style="margin-bottom: 15px;">
+                                <span style="display:inline-block; background:#e11d48; color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:999px; margin-bottom:6px;">
+                                    <?php echo (int) $priceInfo['percent_label']; ?>% OFF
+                                </span>
+                                <p style="margin:0;">
+                                    <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1rem; margin-right: 8px;">$<?php echo number_format($priceInfo['original'], 2); ?></span>
+                                    <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">$<?php echo number_format($priceInfo['discounted'], 2); ?></span>
+                                </p>
+                            </div>
+                        <?php else: ?>
+                            <p style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 15px;">$<?php echo number_format($pkg['price'], 2); ?></p>
+                        <?php endif; ?>
                         
                         <div style="display: flex; gap: 10px; margin-top: auto;">
                             <a href="package-details.php?id=<?php echo $pkg['id']; ?>" class="btn btn-outline" style="flex: 1;">View Details</a>

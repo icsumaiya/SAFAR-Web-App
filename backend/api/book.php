@@ -7,6 +7,7 @@ require_once '../admin/includes/observer/BookingSubject.php';
 require_once '../admin/includes/observer/AgencyStatsObserver.php';
 require_once '../admin/includes/observer/AdminStatsObserver.php';
 require_once '../admin/includes/BookingRequestValidator.php';
+require_once '../admin/includes/NotificationService.php';
 
 header('Content-Type: application/json');
 
@@ -34,19 +35,27 @@ try {
         exit();
     }
 
-    $stmt = $pdo->prepare("INSERT INTO bookings (traveler_id, package_id) VALUES (?, ?)");
-    $stmt->execute([$traveler_id, $package_id]);
+$stmt = $pdo->prepare("INSERT INTO bookings (traveler_id, package_id) VALUES (?, ?)");
+$stmt->execute([$traveler_id, $package_id]);
 
-    // Observer: notify agency/admin stats listeners that a new booking event happened
-    $subject = new BookingSubject();
-    $subject->attach(new AgencyStatsObserver());
-    $subject->attach(new AdminStatsObserver());
-    $subject->notifyObservers([
-        'booking_id' => $pdo->lastInsertId(),
-        'package_id' => $package_id,
-        'traveler_id' => $traveler_id,
-        'status' => 'pending'
-    ]);
+$new_booking_id = $pdo->lastInsertId();
+
+(new NotificationService($pdo))->create(
+    'new_booking',
+    "New booking request received (booking #{$new_booking_id}).",
+    (int) $new_booking_id
+);
+
+// Observer: notify agency/admin stats listeners that a new booking event happened
+$subject = new BookingSubject();
+$subject->attach(new AgencyStatsObserver());
+$subject->attach(new AdminStatsObserver());
+$subject->notifyObservers([
+    'booking_id' => $new_booking_id,
+    'package_id' => $package_id,
+    'traveler_id' => $traveler_id,
+    'status' => 'pending'
+]);
     
     echo json_encode(['success' => true, 'message' => 'Booking request sent successfully.']);
 } catch (Exception $e) {

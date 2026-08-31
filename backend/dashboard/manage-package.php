@@ -2,6 +2,7 @@
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
 require_once '../admin/includes/PackageValidator.php';
+require_once '../admin/includes/NotificationService.php';
 
 requireRole('agency');
 
@@ -44,22 +45,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     
-    $error = PackageValidator::validateAgencyForm($_POST);
-      if ($error === '') {
-        $error = "Please fill in all required fields.";
+$error = PackageValidator::validateAgencyForm($_POST);
+if ($error === '') {
+    if ($edit_id) {
+        $stmt = $pdo->prepare("UPDATE packages SET title=?, location=?, price=?, description=?, image_url=? WHERE id=? AND agency_id=?");
+        $stmt->execute([$title, $location, $price, $description, $image_url, $edit_id, $agency_id]);
+        $success = "Package updated successfully.";
+        // Update local $package variable
+        $package = ['title'=>$title, 'location'=>$location, 'price'=>$price, 'description'=>$description, 'image_url'=>$image_url];
     } else {
-        if ($edit_id) {
-            $stmt = $pdo->prepare("UPDATE packages SET title=?, location=?, price=?, description=?, image_url=? WHERE id=? AND agency_id=?");
-            $stmt->execute([$title, $location, $price, $description, $image_url, $edit_id, $agency_id]);
-            $success = "Package updated successfully.";
-            // Update local $package variable
-            $package = ['title'=>$title, 'location'=>$location, 'price'=>$price, 'description'=>$description, 'image_url'=>$image_url];
-        } else {
-            $stmt = $pdo->prepare("INSERT INTO packages (agency_id, title, location, price, description, image_url) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$agency_id, $title, $location, $price, $description, $image_url]);
-            $success = "New package added successfully.";
-        }
+        $stmt = $pdo->prepare("INSERT INTO packages (agency_id, title, location, price, description, image_url) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$agency_id, $title, $location, $price, $description, $image_url]);
+        $new_package_id = $pdo->lastInsertId();
+
+        (new NotificationService($pdo))->create(
+            'new_package',
+            "New package \"{$title}\" submitted by agency #{$agency_id}.",
+            (int) $new_package_id
+        );
+
+        $success = "New package added successfully.";
     }
+}
 }
 
 require_once '../includes/header.php';

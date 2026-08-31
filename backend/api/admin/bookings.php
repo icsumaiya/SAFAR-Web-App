@@ -1,56 +1,48 @@
 <?php
+
 header('Content-Type: application/json');
+
 require_once '../../includes/db.php';
 require_once '../../includes/ApiAuth.php';
 require_once '../../admin/includes/BookingManagementHelper.php';
 require_once '../../admin/includes/BookingSearchQueryBuilder.php';
+require_once '../../admin/includes/NotificationService.php';
+require_once '../../admin/includes/EmailService.php';
+require_once '../../admin/includes/BookingApiHandler.php';
 
 requireApiRole('admin');
 
+$emailConfigPath = '../../includes/email_config.php';
+$emailConfig = file_exists($emailConfigPath)
+    ? require $emailConfigPath
+    : null;
+
+$handler = new BookingApiHandler(
+    $pdo,
+    new NotificationService($pdo),
+    new EmailService(
+        $emailConfig,
+        '../../logs/email.log'
+    )
+);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $input = json_decode(file_get_contents('php://input'), true) ?? [];
-    $bookingId = (int) ($input['booking_id'] ?? 0);
-    $action = $input['booking_action'] ?? '';
+    $input = json_decode(
+        file_get_contents('php://input'),
+        true
+    ) ?? [];
 
-    if ($bookingId === 0 || $action === '') {
-        http_response_code(422);
-        echo json_encode(['success' => false, 'error' => 'booking_id and booking_action are required.']);
-        exit();
-    }
+    $result = $handler->handlePost($input);
 
-    $status = BookingManagementHelper::resolveStatus($action);
-    $stmt = $pdo->prepare("UPDATE bookings SET status = ? WHERE id = ?");
-    $stmt->execute([$status, $bookingId]);
-
-    echo json_encode(['success' => true, 'message' => 'Booking status updated.']);
+    http_response_code($result['status']);
+    echo json_encode($result['body']);
     exit();
 }
 
-// GET — list bookings (search + status filter + pagination)
-$status_filter = $_GET['status'] ?? 'all';
-$search = trim($_GET['search'] ?? '');
-$page = (int) ($_GET['page'] ?? 1);
+// GET — list bookings
+// Search + status filter + pagination
+$result = $handler->handleGet($_GET);
 
-$built = BookingSearchQueryBuilder::build($search, $status_filter, $page);
-
-$stmt = $pdo->prepare($built['query']);
-$stmt->execute($built['params']);
-$bookings = $stmt->fetchAll();
-
-$countStmt = $pdo->prepare($built['countQuery']);
-$countStmt->execute($built['params']);
-$total = (int) $countStmt->fetchColumn();
-
-$counts = $pdo->query("SELECT status, COUNT(*) AS c FROM bookings GROUP BY status")->fetchAll(PDO::FETCH_KEY_PAIR);
-
-echo json_encode([
-    'success' => true,
-    'data' => $bookings,
-    'pagination' => [
-        'page' => $built['page'],
-        'per_page' => $built['perPage'],
-        'total' => $total,
-        'total_pages' => BookingSearchQueryBuilder::totalPages($total),
-    ],
-    'counts' => $counts,
-]);
+http_response_code($result['status']);
+echo json_encode($result['body']);
+exit();

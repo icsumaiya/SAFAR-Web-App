@@ -65,4 +65,59 @@ class AgencyDetailsService
         $stmt->execute([$agencyId]);
         return (float) $stmt->fetchColumn();
     }
+
+    public function getBookingStats(int $agencyId): array
+    {
+        $stmt = $this->pdo->prepare(
+            "SELECT b.status, COUNT(*) AS c
+             FROM bookings b
+             JOIN packages p ON b.package_id = p.id
+             WHERE p.agency_id = ?
+             GROUP BY b.status"
+        );
+        $stmt->execute([$agencyId]);
+        $counts = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+
+        $pending = (int) ($counts['pending'] ?? 0);
+        $approved = (int) ($counts['approved'] ?? 0);
+        $rejected = (int) ($counts['rejected'] ?? 0);
+
+        return [
+            'pending' => $pending,
+            'approved' => $approved,
+            'rejected' => $rejected,
+            'total' => $pending + $approved + $rejected,
+        ];
+    }
+
+    public function updateProfile(int $agencyId, array $data): void
+    {
+        $stmt = $this->pdo->prepare(
+            "UPDATE agencies SET
+                logo_url = ?,
+                cover_image_url = ?,
+                description = ?,
+                address = ?,
+                website = ?,
+                facebook_url = ?,
+                instagram_url = ?
+             WHERE id = ?"
+        );
+        $stmt->execute([
+            self::nullableTrim($data['logo_url'] ?? ''),
+            self::nullableTrim($data['cover_image_url'] ?? ''),
+            self::nullableTrim($data['description'] ?? ''),
+            self::nullableTrim($data['address'] ?? ''),
+            self::nullableTrim($data['website'] ?? ''),
+            self::nullableTrim($data['facebook_url'] ?? ''),
+            self::nullableTrim($data['instagram_url'] ?? ''),
+            $agencyId,
+        ]);
+    }
+
+    private static function nullableTrim(string $value): ?string
+    {
+        $trimmed = trim($value);
+        return $trimmed !== '' ? $trimmed : null;
+    }
 }

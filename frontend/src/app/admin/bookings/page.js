@@ -115,7 +115,7 @@ export default function BookingsPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-black/5 p-6">
+      <div className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-6">
         {loading ? (
           <p className="text-safar-muted">Loading...</p>
         ) : bookings.length === 0 ? (

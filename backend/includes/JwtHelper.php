@@ -12,13 +12,21 @@ class JwtHelper
     private const ALGO = 'HS256';
 
     /**
-     * NOTE: in production this must come from an environment variable,
-     * never committed to source control. Kept as a constant here only
-     * because this project has no .env loader yet.
+     * Loaded from a gitignored config file (includes/jwt_config.php),
+     * never committed to source control. Falls back to a placeholder
+     * only so local dev doesn't hard-crash before the file is created —
+     * that placeholder is intentionally useless as a real secret.
      */
     private static function secret(): string
     {
-        return 'safar-dev-secret-change-me-please-1234567890';
+        $configPath = __DIR__ . '/jwt_config.php';
+
+        if (file_exists($configPath)) {
+            $config = require $configPath;
+            return $config['secret'];
+        }
+
+        return 'REPLACE-ME-see-includes-jwt_config.example.php-INSECURE-PLACEHOLDER';
     }
 
     public static function issue(array $claims, int $ttlSeconds = 3600): string

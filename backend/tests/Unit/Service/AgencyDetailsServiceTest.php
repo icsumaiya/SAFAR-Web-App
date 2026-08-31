@@ -103,4 +103,80 @@ final class AgencyDetailsServiceTest extends TestCase
         $service = new AgencyDetailsService($pdo);
         $this->assertSame(0.0, $service->getRevenue(5));
     }
+
+    public function testGetBookingStatsReturnsCountsPerStatus(): void
+    {
+        $stmt = $this->createMock(PDOStatement::class);
+        $stmt->expects($this->once())->method('execute')->with([5]);
+        $stmt->method('fetchAll')->willReturn(['pending' => '3', 'approved' => '7', 'rejected' => '1']);
+
+        $pdo = $this->createMock(PDO::class);
+        $pdo->expects($this->once())
+            ->method('prepare')
+            ->with($this->stringContains('GROUP BY b.status'))
+            ->willReturn($stmt);
+
+        $stats = (new AgencyDetailsService($pdo))->getBookingStats(5);
+
+        $this->assertSame(['pending' => 3, 'approved' => 7, 'rejected' => 1, 'total' => 11], $stats);
+    }
+
+    public function testGetBookingStatsDefaultsMissingStatusesToZero(): void
+    {
+        $stmt = $this->createMock(PDOStatement::class);
+        $stmt->method('fetchAll')->willReturn([]);
+
+        $pdo = $this->createMock(PDO::class);
+        $pdo->method('prepare')->willReturn($stmt);
+
+        $stats = (new AgencyDetailsService($pdo))->getBookingStats(5);
+
+        $this->assertSame(['pending' => 0, 'approved' => 0, 'rejected' => 0, 'total' => 0], $stats);
+    }
+
+    public function testUpdateProfileExecutesWithTrimmedValuesAndAgencyIdLast(): void
+    {
+        $stmt = $this->createMock(PDOStatement::class);
+        $stmt->expects($this->once())
+            ->method('execute')
+            ->with([
+                'https://x.com/logo.png',
+                'https://x.com/cover.png',
+                'We run tours.',
+                'Sylhet, Bangladesh',
+                'https://sylhet-tours.com',
+                'https://facebook.com/sylhettours',
+                'https://instagram.com/sylhettours',
+                5,
+            ]);
+
+        $pdo = $this->createMock(PDO::class);
+        $pdo->expects($this->once())
+            ->method('prepare')
+            ->with($this->stringContains('UPDATE agencies SET'))
+            ->willReturn($stmt);
+
+        (new AgencyDetailsService($pdo))->updateProfile(5, [
+            'logo_url' => '  https://x.com/logo.png  ',
+            'cover_image_url' => 'https://x.com/cover.png',
+            'description' => 'We run tours.',
+            'address' => 'Sylhet, Bangladesh',
+            'website' => 'https://sylhet-tours.com',
+            'facebook_url' => 'https://facebook.com/sylhettours',
+            'instagram_url' => 'https://instagram.com/sylhettours',
+        ]);
+    }
+
+    public function testUpdateProfileConvertsEmptyFieldsToNull(): void
+    {
+        $stmt = $this->createMock(PDOStatement::class);
+        $stmt->expects($this->once())
+            ->method('execute')
+            ->with([null, null, null, null, null, null, null, 5]);
+
+        $pdo = $this->createMock(PDO::class);
+        $pdo->method('prepare')->willReturn($stmt);
+
+        (new AgencyDetailsService($pdo))->updateProfile(5, []);
+    }
 }

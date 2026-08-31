@@ -43,7 +43,13 @@ export default function PaymentsPage() {
     { label: "Successful", value: stats.successful_count ?? "—" },
     { label: "Pending", value: stats.pending_count ?? "—" },
     { label: "Failed", value: stats.failed_count ?? "—" },
-    { label: "Successful Amount", value: stats.successful_amount != null ? `$${Number(stats.successful_amount).toFixed(2)}` : "—" },
+    {
+      label: "Successful Amount",
+      value:
+        stats.successful_amount != null
+          ? `$${Number(stats.successful_amount).toFixed(2)}`
+          : "—",
+    },
   ];
 
   const tabs = ["all", "pending", "successful", "failed"];
@@ -51,13 +57,18 @@ export default function PaymentsPage() {
   return (
     <AdminLayout title="Manage Payments">
       {error && (
-        <div className="bg-red-100 text-red-700 text-sm p-3 rounded mb-4">{error}</div>
+        <div className="bg-red-100 text-red-700 text-sm p-3 rounded mb-4">
+          {error}
+        </div>
       )}
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
         {statCards.map((card) => (
-          <div key={card.label} className="bg-white rounded-xl shadow-sm border border-black/5 p-4 text-center">
+          <div
+            key={card.label}
+            className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-4 text-center"
+          >
             <p className="text-xs text-safar-muted mb-1">{card.label}</p>
             <p className="text-xl font-bold text-safar-primary">{card.value}</p>
           </div>
@@ -79,7 +90,10 @@ export default function PaymentsPage() {
           placeholder="Search by traveler name or transaction ID..."
           className="flex-1 max-w-sm border rounded px-3 py-2"
         />
-        <button type="submit" className="bg-safar-primary text-white px-4 py-2 rounded-lg">
+        <button
+          type="submit"
+          className="bg-safar-primary text-white px-4 py-2 rounded-lg"
+        >
           Search
         </button>
       </form>
@@ -102,7 +116,7 @@ export default function PaymentsPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-black/5 p-6">
+      <div className="bg-safar-card rounded-xl shadow-sm border border-black/5 p-6">
         {loading ? (
           <p className="text-safar-muted">Loading...</p>
         ) : payments.length === 0 ? (
@@ -127,14 +141,20 @@ export default function PaymentsPage() {
                     <td className="py-2">{p.traveler_name}</td>
                     <td className="py-2">{p.package_title}</td>
                     <td className="py-2">${Number(p.amount).toFixed(2)}</td>
-                    <td className="py-2 capitalize">{p.method.replace("_", " ")}</td>
+                    <td className="py-2 capitalize">
+                      {p.method.replace("_", " ")}
+                    </td>
                     <td className="py-2">{p.transaction_id || "—"}</td>
                     <td className="py-2">
-                      <span className={`px-2 py-1 rounded text-xs font-medium ${badgeClass[p.status]}`}>
+                      <span
+                        className={`px-2 py-1 rounded text-xs font-medium ${badgeClass[p.status]}`}
+                      >
                         {p.status}
                       </span>
                     </td>
-                    <td className="py-2">{new Date(p.created_at).toLocaleDateString()}</td>
+                    <td className="py-2">
+                      {new Date(p.created_at).toLocaleDateString()}
+                    </td>
                   </tr>
                 ))}
               </tbody>

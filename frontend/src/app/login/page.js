@@ -35,7 +35,7 @@ export default function LoginPage() {
       setUser(data.user);
 
       if (data.user.role === "admin") {
-        router.push("/admin/agencies");
+        router.push("/admin");
       } else {
         router.push("/");
       }
@@ -50,7 +50,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-safar-bg">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm border border-black/5"
+        className="bg-safar-card p-8 rounded-xl shadow-lg w-full max-w-sm border border-black/5"
       >
         <h1 className="text-2xl font-bold mb-6 text-center text-safar-text">
           SAFAR Login

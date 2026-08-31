@@ -1,5 +1,7 @@
 <?php
 require_once 'includes/db.php';
+require_once __DIR__ . '/admin/includes/NotificationService.php';
+require_once __DIR__ . '/admin/includes/EmailService.php';
 require_once 'includes/header.php';
 
 if (isset($_SESSION['user_id'])) {
@@ -36,11 +38,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
                 $stmt->execute([$name, $email, $hashed_password, $role]);
                 $user_id = $pdo->lastInsertId();
+                $emailConfigPath = __DIR__ . '/includes/email_config.php';
+$emailConfig = file_exists($emailConfigPath) ? require $emailConfigPath : null;
+(new EmailService($emailConfig, __DIR__ . '/logs/email.log'))->send(
+    $email,
+    $name,
+    'Welcome to SAFAR!',
+    "Hi {$name},<br><br>Thanks for registering with SAFAR. Your account has been created successfully."
+);
                 
-                if ($role === 'agency') {
-                    $stmt = $pdo->prepare("INSERT INTO agencies (user_id, company_name) VALUES (?, ?)");
-                    $stmt->execute([$user_id, $company_name]);
-                }
+            if ($role === 'agency') {
+                $stmt = $pdo->prepare("INSERT INTO agencies (user_id, company_name) VALUES (?, ?)");
+                $stmt->execute([$user_id, $company_name]);
+
+                (new NotificationService($pdo))->create('agency_registration',"New agency registered: {$company_name}",(int) $user_id);
+}
                 
                 $pdo->commit();
                 $success = "Registration successful! You can now <a href='" . BASE_URL . "/login.php'>log in</a>.";

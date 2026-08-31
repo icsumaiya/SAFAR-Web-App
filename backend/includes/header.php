@@ -29,6 +29,15 @@ require_once __DIR__ . '/NavHelper.php';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/style.css?v=<?php echo time(); ?>">
+    <script>
+        // Apply saved theme before paint (avoids flash of wrong theme)
+        (function () {
+            if (localStorage.getItem('safar_theme') === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/theme.js"></script>
 </head>
 <body>
     <nav class="navbar glass" id="main-nav">
@@ -40,6 +49,13 @@ require_once __DIR__ . '/NavHelper.php';
                 <li><a href="<?php echo BASE_URL; ?>/explore.php" class="<?php echo trim(nav_active('explore.php', $current_page, null, $current_type)); ?>">Explore</a></li>
                 <li><a href="<?php echo BASE_URL; ?>/explore.php?type=tour" class="<?php echo trim(nav_active('explore.php', $current_page, 'tour', $current_type)); ?>">Tours</a></li>
                 <li><a href="<?php echo BASE_URL; ?>/explore.php?type=hotel" class="<?php echo trim(nav_active('explore.php', $current_page, 'hotel', $current_type)); ?>">Hotels</a></li>
+
+                <li>
+                    <button onclick="toggleSafarTheme()" style="background: none; border: none; cursor: pointer; font-size: 1.15rem; color: var(--text-main); display: flex; align-items: center;" title="Toggle dark mode">
+                        <i class="fas fa-moon" id="theme-toggle-icon"></i>
+                    </button>
+                </li>
+
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <?php if ($_SESSION['user_role'] === 'traveler'): ?>
                         <li><a href="<?php echo BASE_URL; ?>/dashboard/traveler.php" class="<?php echo trim(nav_active('traveler.php', $current_page)); ?>">My Bookings</a></li>
@@ -48,6 +64,7 @@ require_once __DIR__ . '/NavHelper.php';
                     <?php elseif ($_SESSION['user_role'] === 'admin'): ?>
                         <li><a href="<?php echo BASE_URL; ?>/admin/index.php" class="<?php echo trim(nav_active('admin/index.php', $current_page)); ?>">Admin Panel</a></li>
                     <?php endif; ?>
+
                     <li>
                         <a href="<?php echo BASE_URL; ?>/profile.php" class="nav-avatar <?php echo trim(nav_active('profile.php', $current_page)) ? 'active' : ''; ?>" title="My Profile">
                             <?php if (!empty($nav_avatar)): ?>
@@ -57,12 +74,14 @@ require_once __DIR__ . '/NavHelper.php';
                             <?php endif; ?>
                         </a>
                     </li>
+
                     <li><a href="<?php echo BASE_URL; ?>/logout.php" class="nav-btn btn-outline-nav">Logout</a></li>
                 <?php else: ?>
                     <li><a href="<?php echo BASE_URL; ?>/login.php" class="nav-btn btn-outline-nav <?php echo trim(nav_active('login.php', $current_page)); ?>">Log In</a></li>
                     <li><a href="<?php echo BASE_URL; ?>/signup.php" class="nav-btn btn-gradient-nav <?php echo trim(nav_active('signup.php', $current_page)); ?>">Sign Up</a></li>
                 <?php endif; ?>
             </ul>
+
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -70,6 +89,7 @@ require_once __DIR__ . '/NavHelper.php';
             </div>
         </div>
     </nav>
+
     <main class="main-content">
     
     <script>

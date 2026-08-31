@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for D:\xampp\htdocs\SAFAR\backend\admin\includes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../_css/bootstrap.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../../_css/nv.d3.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../../_css/style.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../../index.html">D:\xampp\htdocs\SAFAR\backend</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">admin</a></li>
+         <li class="breadcrumb-item"><a href="index.html">includes</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="CancellationSearchQueryBuilder.php.html#6">CancellationSearchQueryBuilder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database.php.html#2">Database</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PasswordResetService.php.html#6">PasswordResetService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentServiceTest.php.html#5">PaymentServiceTest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BookingDetailsService.php.html#8">BookingDetailsService</a></td><td class="text-right">11%</td></tr>
+       <tr><td><a href="EmailService.php.html#12">EmailService</a></td><td class="text-right">41%</td></tr>
+       <tr><td><a href="PaymentGatewayService.php.html#6">PaymentGatewayService</a></td><td class="text-right">56%</td></tr>
+       <tr><td><a href="FeaturedPackageService.php.html#6">FeaturedPackageService</a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="PackageSearchQueryBuilder.php.html#9">PackageSearchQueryBuilder</a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="AgencySearchQueryBuilder.php.html#10">AgencySearchQueryBuilder</a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="AnalyticsService.php.html#7">AnalyticsService</a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="NotificationService.php.html#7">NotificationService</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="TravelerDashboardService.php.html#8">TravelerDashboardService</a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="PasswordResetService.php.html#6">PasswordResetService</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="CancellationSearchQueryBuilder.php.html#6">CancellationSearchQueryBuilder</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Database.php.html#2">Database</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="FeaturedPackageService.php.html#6">FeaturedPackageService</a></td><td class="text-right">18</td></tr>
+       <tr><td><a href="BookingDetailsService.php.html#8">BookingDetailsService</a></td><td class="text-right">15</td></tr>
+       <tr><td><a href="EmailService.php.html#12">EmailService</a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="PackageSearchQueryBuilder.php.html#9">PackageSearchQueryBuilder</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="TravelerDashboardService.php.html#8">TravelerDashboardService</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="AgencySearchQueryBuilder.php.html#10">AgencySearchQueryBuilder</a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="PaymentGatewayService.php.html#6">PaymentGatewayService</a></td><td class="text-right">11</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="AgencySearchQueryBuilder.php.html#67"><abbr title="AgencySearchQueryBuilder::totalPages">totalPages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AnalyticsService.php.html#52"><abbr title="AnalyticsService::getMonthlyRevenue">getMonthlyRevenue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AnalyticsService.php.html#70"><abbr title="AnalyticsService::getUserGrowth">getUserGrowth</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AnalyticsService.php.html#95"><abbr title="AnalyticsService::getPopularDestinations">getPopularDestinations</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BookingDetailsService.php.html#12"><abbr title="BookingDetailsService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="BookingDetailsService.php.html#17"><abbr title="BookingDetailsService::getBooking">getBooking</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CancellationSearchQueryBuilder.php.html#11"><abbr title="CancellationSearchQueryBuilder::build">build</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CancellationSearchQueryBuilder.php.html#51"><abbr title="CancellationSearchQueryBuilder::totalPages">totalPages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database.php.html#6"><abbr title="Database::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database.php.html#16"><abbr title="Database::getInstance">getInstance</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database.php.html#23"><abbr title="Database::getConnection">getConnection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FeaturedPackageService.php.html#21"><abbr title="FeaturedPackageService::setRecommended">setRecommended</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FeaturedPackageService.php.html#43"><abbr title="FeaturedPackageService::getFeatured">getFeatured</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FeaturedPackageService.php.html#54"><abbr title="FeaturedPackageService::getRecommended">getRecommended</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="NotificationService.php.html#76"><abbr title="NotificationService::getUnreadCountForTraveler">getUnreadCountForTraveler</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="NotificationService.php.html#95"><abbr title="NotificationService::markAllReadForTraveler">markAllReadForTraveler</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PackageSearchQueryBuilder.php.html#80"><abbr title="PackageSearchQueryBuilder::totalPages">totalPages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PasswordResetService.php.html#10"><abbr title="PasswordResetService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PasswordResetService.php.html#15"><abbr title="PasswordResetService::findUserByEmail">findUserByEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PasswordResetService.php.html#24"><abbr title="PasswordResetService::createToken">createToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PasswordResetService.php.html#40"><abbr title="PasswordResetService::validateToken">validateToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PasswordResetService.php.html#59"><abbr title="PasswordResetService::resetPassword">resetPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentGatewayService.php.html#55"><abbr title="PaymentGatewayService::callInitApi">callInitApi</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentGatewayService.php.html#70"><abbr title="PaymentGatewayService::callValidationApi">callValidationApi</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentServiceTest.php.html#7"><abbr title="PaymentServiceTest::testRecordPaymentInsertsWithNullTransactionIdWhenEmpty">testRecordPaymentInsertsWithNullTransactionIdWhenEmpty</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentServiceTest.php.html#30"><abbr title="PaymentServiceTest::testRecordPaymentInsertsWithGivenTransactionId">testRecordPaymentInsertsWithGivenTransactionId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentServiceTest.php.html#50"><abbr title="PaymentServiceTest::testGetForBookingReturnsLatestPayment">testGetForBookingReturnsLatestPayment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentServiceTest.php.html#68"><abbr title="PaymentServiceTest::testGetForBookingReturnsNullWhenNoneFound">testGetForBookingReturnsNullWhenNoneFound</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentServiceTest.php.html#80"><abbr title="PaymentServiceTest::testGetStatsComputesRealCountsAndAmount">testGetStatsComputesRealCountsAndAmount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentServiceTest.php.html#108"><abbr title="PaymentServiceTest::testGetStatsHandlesNoPaymentsYet">testGetStatsHandlesNoPaymentsYet</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EmailService.php.html#23"><abbr title="EmailService::send">send</abbr></a></td><td class="text-right">14%</td></tr>
+       <tr><td><a href="PackageSearchQueryBuilder.php.html#22"><abbr title="PackageSearchQueryBuilder::build">build</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="TravelerDashboardService.php.html#83"><abbr title="TravelerDashboardService::getBookingsByCategory">getBookingsByCategory</abbr></a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="AgencySearchQueryBuilder.php.html#23"><abbr title="AgencySearchQueryBuilder::build">build</abbr></a></td><td class="text-right">72%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="CancellationSearchQueryBuilder.php.html#11"><abbr title="CancellationSearchQueryBuilder::build">build</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="PasswordResetService.php.html#40"><abbr title="PasswordResetService::validateToken">validateToken</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="EmailService.php.html#23"><abbr title="EmailService::send">send</abbr></a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="PackageSearchQueryBuilder.php.html#22"><abbr title="PackageSearchQueryBuilder::build">build</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="AgencySearchQueryBuilder.php.html#23"><abbr title="AgencySearchQueryBuilder::build">build</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="TravelerDashboardService.php.html#83"><abbr title="TravelerDashboardService::getBookingsByCategory">getBookingsByCategory</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="BookingDetailsService.php.html#17"><abbr title="BookingDetailsService::getBooking">getBooking</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Database.php.html#16"><abbr title="Database::getInstance">getInstance</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="FeaturedPackageService.php.html#21"><abbr title="FeaturedPackageService::setRecommended">setRecommended</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PasswordResetService.php.html#15"><abbr title="PasswordResetService::findUserByEmail">findUserByEmail</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.12</a> using <a href="https://www.php.net/" target="_top">PHP 8.2.12</a> and <a href="https://phpunit.de/">PHPUnit 11.5.56</a> at Sat Aug 29 8:17:42 CEST 2026.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../_js/jquery.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../../_js/d3.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../../_js/nv.d3.min.js?v=11.0.12" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([4,0,1,0,0,1,1,2,3,1,1,51], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([30,0,1,0,0,0,0,1,2,0,1,160], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,4,"<a href=\"AdminDashboardService.php.html#6\">AdminDashboardService<\/a>"],[100,5,"<a href=\"AgencyApiHandler.php.html#7\">AgencyApiHandler<\/a>"],[100,7,"<a href=\"AgencyCommandFactory.php.html#7\">AgencyCommandFactory<\/a>"],[100,10,"<a href=\"AgencyDetailsService.php.html#8\">AgencyDetailsService<\/a>"],[100,9,"<a href=\"AgencyProfileValidator.php.html#2\">AgencyProfileValidator<\/a>"],[70,9,"<a href=\"AgencySearchQueryBuilder.php.html#10\">AgencySearchQueryBuilder<\/a>"],[71.64179104477611,10,"<a href=\"AnalyticsService.php.html#7\">AnalyticsService<\/a>"],[11.11111111111111,4,"<a href=\"BookingDetailsService.php.html#8\">BookingDetailsService<\/a>"],[100,7,"<a href=\"BookingManagementHelper.php.html#5\">BookingManagementHelper<\/a>"],[100,5,"<a href=\"BookingRequestValidator.php.html#6\">BookingRequestValidator<\/a>"],[100,5,"<a href=\"BookingSearchQueryBuilder.php.html#6\">BookingSearchQueryBuilder<\/a>"],[0,5,"<a href=\"CancellationSearchQueryBuilder.php.html#6\">CancellationSearchQueryBuilder<\/a>"],[100,11,"<a href=\"CancellationService.php.html#6\">CancellationService<\/a>"],[100,6,"<a href=\"CancellationValidator.php.html#5\">CancellationValidator<\/a>"],[100,4,"<a href=\"CommissionSearchQueryBuilder.php.html#6\">CommissionSearchQueryBuilder<\/a>"],[100,9,"<a href=\"CommissionService.php.html#8\">CommissionService<\/a>"],[100,6,"<a href=\"CommissionValidator.php.html#5\">CommissionValidator<\/a>"],[100,5,"<a href=\"CouponSearchQueryBuilder.php.html#5\">CouponSearchQueryBuilder<\/a>"],[100,20,"<a href=\"CouponService.php.html#6\">CouponService<\/a>"],[100,42,"<a href=\"CouponValidator.php.html#7\">CouponValidator<\/a>"],[0,4,"<a href=\"Database.php.html#2\">Database<\/a>"],[41.935483870967744,6,"<a href=\"EmailService.php.html#12\">EmailService<\/a>"],[60.97560975609756,11,"<a href=\"FeaturedPackageService.php.html#6\">FeaturedPackageService<\/a>"],[100,8,"<a href=\"FeaturedPackageValidator.php.html#4\">FeaturedPackageValidator<\/a>"],[100,11,"<a href=\"InvoiceService.php.html#8\">InvoiceService<\/a>"],[100,4,"<a href=\"ListingFilterFactory.php.html#6\">ListingFilterFactory<\/a>"],[75,10,"<a href=\"NotificationService.php.html#7\">NotificationService<\/a>"],[100,0,"<a href=\"PackageFactory.php.html#2\">Package<\/a>"],[100,3,"<a href=\"PackageFactory.php.html#11\">PackageFactory<\/a>"],[64.86486486486487,9,"<a href=\"PackageSearchQueryBuilder.php.html#9\">PackageSearchQueryBuilder<\/a>"],[100,13,"<a href=\"PackageValidator.php.html#5\">PackageValidator<\/a>"],[0,9,"<a href=\"PasswordResetService.php.html#6\">PasswordResetService<\/a>"],[100,5,"<a href=\"PasswordResetValidator.php.html#4\">PasswordResetValidator<\/a>"],[56.25,7,"<a href=\"PaymentGatewayService.php.html#6\">PaymentGatewayService<\/a>"],[100,5,"<a href=\"PaymentSearchQueryBuilder.php.html#6\">PaymentSearchQueryBuilder<\/a>"],[100,6,"<a href=\"PaymentService.php.html#7\">PaymentService<\/a>"],[0,6,"<a href=\"PaymentServiceTest.php.html#5\">PaymentServiceTest<\/a>"],[100,7,"<a href=\"PaymentValidator.php.html#5\">PaymentValidator<\/a>"],[93.54838709677419,8,"<a href=\"ReviewSearchQueryBuilder.php.html#6\">ReviewSearchQueryBuilder<\/a>"],[100,12,"<a href=\"ReviewService.php.html#6\">ReviewService<\/a>"],[100,10,"<a href=\"ReviewValidator.php.html#6\">ReviewValidator<\/a>"],[100,2,"<a href=\"TravelerBookingSearchQueryBuilder.php.html#6\">TravelerBookingSearchQueryBuilder<\/a>"],[87.5,12,"<a href=\"TravelerDashboardService.php.html#8\">TravelerDashboardService<\/a>"],[100,5,"<a href=\"UserManagementValidator.php.html#6\">UserManagementValidator<\/a>"],[100,3,"<a href=\"UserSearchQueryBuilder.php.html#6\">UserSearchQueryBuilder<\/a>"],[100,7,"<a href=\"WishlistService.php.html#8\">WishlistService<\/a>"],[100,4,"<a href=\"WishlistValidator.php.html#4\">WishlistValidator<\/a>"],[100,1,"<a href=\"adapter\/HotelDataAdapter.php.html#4\">HotelDataAdapter<\/a>"],[100,2,"<a href=\"command\/ActivateAgencyCommand.php.html#4\">ActivateAgencyCommand<\/a>"],[100,2,"<a href=\"command\/ApproveAgencyCommand.php.html#3\">ApproveAgencyCommand<\/a>"],[100,2,"<a href=\"command\/RejectAgencyCommand.php.html#4\">RejectAgencyCommand<\/a>"],[100,2,"<a href=\"command\/SuspendAgencyCommand.php.html#4\">SuspendAgencyCommand<\/a>"],[100,2,"<a href=\"command\/UnverifyAgencyCommand.php.html#4\">UnverifyAgencyCommand<\/a>"],[100,2,"<a href=\"facade\/AdminFacade.php.html#2\">UserService<\/a>"],[100,2,"<a href=\"facade\/AdminFacade.php.html#11\">AgencyService<\/a>"],[100,2,"<a href=\"facade\/AdminFacade.php.html#22\">PackageService<\/a>"],[100,4,"<a href=\"facade\/AdminFacade.php.html#31\">BookingService<\/a>"],[100,3,"<a href=\"facade\/AdminFacade.php.html#56\">AdminFacade<\/a>"],[100,1,"<a href=\"observer\/AdminStatsObserver.php.html#4\">AdminStatsObserver<\/a>"],[100,1,"<a href=\"observer\/AgencyStatsObserver.php.html#4\">AgencyStatsObserver<\/a>"],[100,3,"<a href=\"observer\/BookingSubject.php.html#4\">BookingSubject<\/a>"],[100,3,"<a href=\"strategy\/FilterContext.php.html#4\">FilterContext<\/a>"],[100,2,"<a href=\"strategy\/LocationFilter.php.html#4\">LocationFilter<\/a>"],[100,2,"<a href=\"strategy\/PriceMaxFilter.php.html#4\">PriceMaxFilter<\/a>"],[100,2,"<a href=\"strategy\/TypeFilter.php.html#4\">TypeFilter<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"AdminDashboardService.php.html#10\">AdminDashboardService::__construct<\/a>"],[100,1,"<a href=\"AdminDashboardService.php.html#15\">AdminDashboardService::getStats<\/a>"],[100,1,"<a href=\"AdminDashboardService.php.html#26\">AdminDashboardService::getRecentBookings<\/a>"],[100,1,"<a href=\"AdminDashboardService.php.html#36\">AdminDashboardService::getRecentUsers<\/a>"],[100,4,"<a href=\"AgencyApiHandler.php.html#13\">AgencyApiHandler::handlePost<\/a>"],[100,1,"<a href=\"AgencyApiHandler.php.html#46\">AgencyApiHandler::handleGet<\/a>"],[100,7,"<a href=\"AgencyCommandFactory.php.html#9\">AgencyCommandFactory::build<\/a>"],[100,1,"<a href=\"AgencyDetailsService.php.html#12\">AgencyDetailsService::__construct<\/a>"],[100,2,"<a href=\"AgencyDetailsService.php.html#17\">AgencyDetailsService::getAgency<\/a>"],[100,1,"<a href=\"AgencyDetailsService.php.html#30\">AgencyDetailsService::getPackages<\/a>"],[100,1,"<a href=\"AgencyDetailsService.php.html#39\">AgencyDetailsService::getBookings<\/a>"],[100,1,"<a href=\"AgencyDetailsService.php.html#57\">AgencyDetailsService::getRevenue<\/a>"],[100,1,"<a href=\"AgencyDetailsService.php.html#69\">AgencyDetailsService::getBookingStats<\/a>"],[100,1,"<a href=\"AgencyDetailsService.php.html#93\">AgencyDetailsService::updateProfile<\/a>"],[100,2,"<a href=\"AgencyDetailsService.php.html#118\">AgencyDetailsService::nullableTrim<\/a>"],[100,6,"<a href=\"AgencyProfileValidator.php.html#7\">AgencyProfileValidator::validate<\/a>"],[100,3,"<a href=\"AgencyProfileValidator.php.html#30\">AgencyProfileValidator::isValidUrl<\/a>"],[72.41379310344827,8,"<a href=\"AgencySearchQueryBuilder.php.html#23\">AgencySearchQueryBuilder::build<\/a>"],[0,1,"<a href=\"AgencySearchQueryBuilder.php.html#67\">AgencySearchQueryBuilder::totalPages<\/a>"],[100,1,"<a href=\"AnalyticsService.php.html#11\">AnalyticsService::__construct<\/a>"],[100,1,"<a href=\"AnalyticsService.php.html#16\">AnalyticsService::getSummary<\/a>"],[100,1,"<a href=\"AnalyticsService.php.html#40\">AnalyticsService::getMonthlyBookings<\/a>"],[0,1,"<a href=\"AnalyticsService.php.html#52\">AnalyticsService::getMonthlyRevenue<\/a>"],[100,1,"<a href=\"AnalyticsService.php.html#64\">AnalyticsService::getBookingStatusDistribution<\/a>"],[0,1,"<a href=\"AnalyticsService.php.html#70\">AnalyticsService::getUserGrowth<\/a>"],[100,1,"<a href=\"AnalyticsService.php.html#82\">AnalyticsService::getPopularPackages<\/a>"],[0,1,"<a href=\"AnalyticsService.php.html#95\">AnalyticsService::getPopularDestinations<\/a>"],[100,1,"<a href=\"AnalyticsService.php.html#108\">AnalyticsService::getTopAgencies<\/a>"],[100,1,"<a href=\"AnalyticsService.php.html#121\">AnalyticsService::getRevenueTrend<\/a>"],[0,1,"<a href=\"BookingDetailsService.php.html#12\">BookingDetailsService::__construct<\/a>"],[0,2,"<a href=\"BookingDetailsService.php.html#17\">BookingDetailsService::getBooking<\/a>"],[100,1,"<a href=\"BookingDetailsService.php.html#42\">BookingDetailsService::formatReference<\/a>"],[100,2,"<a href=\"BookingManagementHelper.php.html#10\">BookingManagementHelper::resolveStatus<\/a>"],[100,3,"<a href=\"BookingManagementHelper.php.html#19\">BookingManagementHelper::buildRedirectUrl<\/a>"],[100,2,"<a href=\"BookingManagementHelper.php.html#31\">BookingManagementHelper::buildListQuery<\/a>"],[100,5,"<a href=\"BookingRequestValidator.php.html#15\">BookingRequestValidator::validate<\/a>"],[100,4,"<a href=\"BookingSearchQueryBuilder.php.html#17\">BookingSearchQueryBuilder::build<\/a>"],[100,1,"<a href=\"BookingSearchQueryBuilder.php.html#58\">BookingSearchQueryBuilder::totalPages<\/a>"],[0,4,"<a href=\"CancellationSearchQueryBuilder.php.html#11\">CancellationSearchQueryBuilder::build<\/a>"],[0,1,"<a href=\"CancellationSearchQueryBuilder.php.html#51\">CancellationSearchQueryBuilder::totalPages<\/a>"],[100,1,"<a href=\"CancellationService.php.html#10\">CancellationService::__construct<\/a>"],[100,4,"<a href=\"CancellationService.php.html#20\">CancellationService::guardRequest<\/a>"],[100,1,"<a href=\"CancellationService.php.html#46\">CancellationService::requestCancellation<\/a>"],[100,3,"<a href=\"CancellationService.php.html#58\">CancellationService::approve<\/a>"],[100,1,"<a href=\"CancellationService.php.html#79\">CancellationService::reject<\/a>"],[100,1,"<a href=\"CancellationService.php.html#85\">CancellationService::updateRefundStatus<\/a>"],[100,4,"<a href=\"CancellationValidator.php.html#10\">CancellationValidator::validateRequest<\/a>"],[100,2,"<a href=\"CancellationValidator.php.html#30\">CancellationValidator::validateRefundStatus<\/a>"],[100,3,"<a href=\"CommissionSearchQueryBuilder.php.html#16\">CommissionSearchQueryBuilder::build<\/a>"],[100,1,"<a href=\"CommissionSearchQueryBuilder.php.html#55\">CommissionSearchQueryBuilder::totalPages<\/a>"],[100,1,"<a href=\"CommissionService.php.html#12\">CommissionService::__construct<\/a>"],[100,3,"<a href=\"CommissionService.php.html#26\">CommissionService::syncCommissions<\/a>"],[100,1,"<a href=\"CommissionService.php.html#72\">CommissionService::getSummary<\/a>"],[100,1,"<a href=\"CommissionService.php.html#92\">CommissionService::getByAgency<\/a>"],[100,2,"<a href=\"CommissionService.php.html#109\">CommissionService::getPercentage<\/a>"],[100,1,"<a href=\"CommissionService.php.html#118\">CommissionService::updatePercentage<\/a>"],[100,6,"<a href=\"CommissionValidator.php.html#7\">CommissionValidator::validatePercentage<\/a>"],[100,4,"<a href=\"CouponSearchQueryBuilder.php.html#9\">CouponSearchQueryBuilder::build<\/a>"],[100,1,"<a href=\"CouponSearchQueryBuilder.php.html#43\">CouponSearchQueryBuilder::totalPages<\/a>"],[100,1,"<a href=\"CouponService.php.html#10\">CouponService::__construct<\/a>"],[100,5,"<a href=\"CouponService.php.html#15\">CouponService::create<\/a>"],[100,5,"<a href=\"CouponService.php.html#37\">CouponService::update<\/a>"],[100,2,"<a href=\"CouponService.php.html#59\">CouponService::setActive<\/a>"],[100,2,"<a href=\"CouponService.php.html#70\">CouponService::delete<\/a>"],[100,2,"<a href=\"CouponService.php.html#82\">CouponService::findByCode<\/a>"],[100,1,"<a href=\"CouponService.php.html#91\">CouponService::countUsageForCoupon<\/a>"],[100,1,"<a href=\"CouponService.php.html#99\">CouponService::countUsageForUser<\/a>"],[100,1,"<a href=\"CouponService.php.html#107\">CouponService::recordUsage<\/a>"],[100,29,"<a href=\"CouponValidator.php.html#11\">CouponValidator::validateCouponData<\/a>"],[100,10,"<a href=\"CouponValidator.php.html#69\">CouponValidator::validateForUse<\/a>"],[100,3,"<a href=\"CouponValidator.php.html#104\">CouponValidator::calculateDiscount<\/a>"],[0,1,"<a href=\"Database.php.html#6\">Database::__construct<\/a>"],[0,2,"<a href=\"Database.php.html#16\">Database::getInstance<\/a>"],[0,1,"<a href=\"Database.php.html#23\">Database::getConnection<\/a>"],[100,1,"<a href=\"EmailService.php.html#17\">EmailService::__construct<\/a>"],[14.285714285714285,4,"<a href=\"EmailService.php.html#23\">EmailService::send<\/a>"],[100,1,"<a href=\"EmailService.php.html#53\">EmailService::logInsteadOfSend<\/a>"],[100,1,"<a href=\"FeaturedPackageService.php.html#10\">FeaturedPackageService::__construct<\/a>"],[100,2,"<a href=\"FeaturedPackageService.php.html#15\">FeaturedPackageService::setFeatured<\/a>"],[0,2,"<a href=\"FeaturedPackageService.php.html#21\">FeaturedPackageService::setRecommended<\/a>"],[100,1,"<a href=\"FeaturedPackageService.php.html#27\">FeaturedPackageService::setSpecialOffer<\/a>"],[100,1,"<a href=\"FeaturedPackageService.php.html#35\">FeaturedPackageService::clearSpecialOffer<\/a>"],[0,1,"<a href=\"FeaturedPackageService.php.html#43\">FeaturedPackageService::getFeatured<\/a>"],[0,1,"<a href=\"FeaturedPackageService.php.html#54\">FeaturedPackageService::getRecommended<\/a>"],[100,1,"<a href=\"FeaturedPackageService.php.html#65\">FeaturedPackageService::getSpecialOffers<\/a>"],[100,1,"<a href=\"FeaturedPackageService.php.html#81\">FeaturedPackageService::getPopular<\/a>"],[100,8,"<a href=\"FeaturedPackageValidator.php.html#6\">FeaturedPackageValidator::validateOffer<\/a>"],[100,1,"<a href=\"InvoiceService.php.html#12\">InvoiceService::__construct<\/a>"],[100,10,"<a href=\"InvoiceService.php.html#17\">InvoiceService::getInvoiceData<\/a>"],[100,4,"<a href=\"ListingFilterFactory.php.html#13\">ListingFilterFactory::build<\/a>"],[100,1,"<a href=\"NotificationService.php.html#11\">NotificationService::__construct<\/a>"],[100,1,"<a href=\"NotificationService.php.html#16\">NotificationService::create<\/a>"],[100,1,"<a href=\"NotificationService.php.html#33\">NotificationService::getRecent<\/a>"],[100,1,"<a href=\"NotificationService.php.html#44\">NotificationService::getUnreadCount<\/a>"],[100,1,"<a href=\"NotificationService.php.html#51\">NotificationService::markRead<\/a>"],[100,1,"<a href=\"NotificationService.php.html#57\">NotificationService::markAllRead<\/a>"],[100,1,"<a href=\"NotificationService.php.html#62\">NotificationService::getForTraveler<\/a>"],[0,1,"<a href=\"NotificationService.php.html#76\">NotificationService::getUnreadCountForTraveler<\/a>"],[100,1,"<a href=\"NotificationService.php.html#87\">NotificationService::markReadForTraveler<\/a>"],[0,1,"<a href=\"NotificationService.php.html#95\">NotificationService::markAllReadForTraveler<\/a>"],[100,3,"<a href=\"PackageFactory.php.html#12\">PackageFactory::createPackage<\/a>"],[66.66666666666666,8,"<a href=\"PackageSearchQueryBuilder.php.html#22\">PackageSearchQueryBuilder::build<\/a>"],[0,1,"<a href=\"PackageSearchQueryBuilder.php.html#80\">PackageSearchQueryBuilder::totalPages<\/a>"],[100,8,"<a href=\"PackageValidator.php.html#11\">PackageValidator::validate<\/a>"],[100,5,"<a href=\"PackageValidator.php.html#39\">PackageValidator::validateAgencyForm<\/a>"],[0,1,"<a href=\"PasswordResetService.php.html#10\">PasswordResetService::__construct<\/a>"],[0,2,"<a href=\"PasswordResetService.php.html#15\">PasswordResetService::findUserByEmail<\/a>"],[0,1,"<a href=\"PasswordResetService.php.html#24\">PasswordResetService::createToken<\/a>"],[0,4,"<a href=\"PasswordResetService.php.html#40\">PasswordResetService::validateToken<\/a>"],[0,1,"<a href=\"PasswordResetService.php.html#59\">PasswordResetService::resetPassword<\/a>"],[100,3,"<a href=\"PasswordResetValidator.php.html#6\">PasswordResetValidator::validateEmail<\/a>"],[100,2,"<a href=\"PasswordResetValidator.php.html#14\">PasswordResetValidator::validateNewPassword<\/a>"],[100,1,"<a href=\"PaymentGatewayService.php.html#13\">PaymentGatewayService::__construct<\/a>"],[100,1,"<a href=\"PaymentGatewayService.php.html#22\">PaymentGatewayService::buildTranId<\/a>"],[100,1,"<a href=\"PaymentGatewayService.php.html#31\">PaymentGatewayService::buildSessionPayload<\/a>"],[0,1,"<a href=\"PaymentGatewayService.php.html#55\">PaymentGatewayService::callInitApi<\/a>"],[0,1,"<a href=\"PaymentGatewayService.php.html#70\">PaymentGatewayService::callValidationApi<\/a>"],[100,2,"<a href=\"PaymentGatewayService.php.html#92\">PaymentGatewayService::isValidationSuccessful<\/a>"],[100,4,"<a href=\"PaymentSearchQueryBuilder.php.html#17\">PaymentSearchQueryBuilder::build<\/a>"],[100,1,"<a href=\"PaymentSearchQueryBuilder.php.html#57\">PaymentSearchQueryBuilder::totalPages<\/a>"],[100,1,"<a href=\"PaymentService.php.html#11\">PaymentService::__construct<\/a>"],[100,2,"<a href=\"PaymentService.php.html#19\">PaymentService::recordPayment<\/a>"],[100,2,"<a href=\"PaymentService.php.html#39\">PaymentService::getForBooking<\/a>"],[100,1,"<a href=\"PaymentService.php.html#57\">PaymentService::getStats<\/a>"],[0,1,"<a href=\"PaymentServiceTest.php.html#7\">PaymentServiceTest::testRecordPaymentInsertsWithNullTransactionIdWhenEmpty<\/a>"],[0,1,"<a href=\"PaymentServiceTest.php.html#30\">PaymentServiceTest::testRecordPaymentInsertsWithGivenTransactionId<\/a>"],[0,1,"<a href=\"PaymentServiceTest.php.html#50\">PaymentServiceTest::testGetForBookingReturnsLatestPayment<\/a>"],[0,1,"<a href=\"PaymentServiceTest.php.html#68\">PaymentServiceTest::testGetForBookingReturnsNullWhenNoneFound<\/a>"],[0,1,"<a href=\"PaymentServiceTest.php.html#80\">PaymentServiceTest::testGetStatsComputesRealCountsAndAmount<\/a>"],[0,1,"<a href=\"PaymentServiceTest.php.html#108\">PaymentServiceTest::testGetStatsHandlesNoPaymentsYet<\/a>"],[100,7,"<a href=\"PaymentValidator.php.html#14\">PaymentValidator::validate<\/a>"],[93.33333333333333,7,"<a href=\"ReviewSearchQueryBuilder.php.html#12\">ReviewSearchQueryBuilder::build<\/a>"],[100,1,"<a href=\"ReviewSearchQueryBuilder.php.html#57\">ReviewSearchQueryBuilder::totalPages<\/a>"],[100,1,"<a href=\"ReviewService.php.html#10\">ReviewService::__construct<\/a>"],[100,4,"<a href=\"ReviewService.php.html#22\">ReviewService::guardSubmission<\/a>"],[100,2,"<a href=\"ReviewService.php.html#51\">ReviewService::submitReview<\/a>"],[100,1,"<a href=\"ReviewService.php.html#72\">ReviewService::setStatus<\/a>"],[100,2,"<a href=\"ReviewService.php.html#85\">ReviewService::getForPackage<\/a>"],[100,1,"<a href=\"ReviewService.php.html#131\">ReviewService::getForAgency<\/a>"],[100,1,"<a href=\"ReviewService.php.html#161\">ReviewService::getStats<\/a>"],[100,8,"<a href=\"ReviewValidator.php.html#12\">ReviewValidator::validateSubmission<\/a>"],[100,2,"<a href=\"ReviewValidator.php.html#38\">ReviewValidator::validateModerationStatus<\/a>"],[100,2,"<a href=\"TravelerBookingSearchQueryBuilder.php.html#11\">TravelerBookingSearchQueryBuilder::build<\/a>"],[100,1,"<a href=\"TravelerDashboardService.php.html#12\">TravelerDashboardService::__construct<\/a>"],[100,1,"<a href=\"TravelerDashboardService.php.html#25\">TravelerDashboardService::getOverview<\/a>"],[100,1,"<a href=\"TravelerDashboardService.php.html#58\">TravelerDashboardService::getUpcomingTrips<\/a>"],[70.83333333333334,7,"<a href=\"TravelerDashboardService.php.html#83\">TravelerDashboardService::getBookingsByCategory<\/a>"],[100,1,"<a href=\"TravelerDashboardService.php.html#125\">TravelerDashboardService::getPaymentHistory<\/a>"],[100,1,"<a href=\"TravelerDashboardService.php.html#146\">TravelerDashboardService::getMyReviews<\/a>"],[100,2,"<a href=\"UserManagementValidator.php.html#13\">UserManagementValidator::validateDelete<\/a>"],[100,3,"<a href=\"UserManagementValidator.php.html#24\">UserManagementValidator::validateRoleChange<\/a>"],[100,3,"<a href=\"UserSearchQueryBuilder.php.html#11\">UserSearchQueryBuilder::build<\/a>"],[100,1,"<a href=\"WishlistService.php.html#12\">WishlistService::__construct<\/a>"],[100,1,"<a href=\"WishlistService.php.html#17\">WishlistService::packageExists<\/a>"],[100,1,"<a href=\"WishlistService.php.html#25\">WishlistService::isInWishlist<\/a>"],[100,2,"<a href=\"WishlistService.php.html#39\">WishlistService::add<\/a>"],[100,1,"<a href=\"WishlistService.php.html#53\">WishlistService::remove<\/a>"],[100,1,"<a href=\"WishlistService.php.html#61\">WishlistService::getForTraveler<\/a>"],[100,4,"<a href=\"WishlistValidator.php.html#6\">WishlistValidator::validate<\/a>"],[100,1,"<a href=\"adapter\/HotelDataAdapter.php.html#5\">HotelDataAdapter::adapt<\/a>"],[100,1,"<a href=\"command\/ActivateAgencyCommand.php.html#8\">ActivateAgencyCommand::__construct<\/a>"],[100,1,"<a href=\"command\/ActivateAgencyCommand.php.html#13\">ActivateAgencyCommand::execute<\/a>"],[100,1,"<a href=\"command\/ApproveAgencyCommand.php.html#7\">ApproveAgencyCommand::__construct<\/a>"],[100,1,"<a href=\"command\/ApproveAgencyCommand.php.html#12\">ApproveAgencyCommand::execute<\/a>"],[100,1,"<a href=\"command\/RejectAgencyCommand.php.html#8\">RejectAgencyCommand::__construct<\/a>"],[100,1,"<a href=\"command\/RejectAgencyCommand.php.html#13\">RejectAgencyCommand::execute<\/a>"],[100,1,"<a href=\"command\/SuspendAgencyCommand.php.html#8\">SuspendAgencyCommand::__construct<\/a>"],[100,1,"<a href=\"command\/SuspendAgencyCommand.php.html#13\">SuspendAgencyCommand::execute<\/a>"],[100,1,"<a href=\"command\/UnverifyAgencyCommand.php.html#8\">UnverifyAgencyCommand::__construct<\/a>"],[100,1,"<a href=\"command\/UnverifyAgencyCommand.php.html#13\">UnverifyAgencyCommand::execute<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#4\">UserService::__construct<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#6\">UserService::getTotalUsers<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#13\">AgencyService::__construct<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#15\">AgencyService::getPendingVerifications<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#24\">PackageService::__construct<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#26\">PackageService::getTotalPackages<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#33\">BookingService::__construct<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#35\">BookingService::getTotalBookings<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#39\">BookingService::getPendingBookings<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#45\">BookingService::getRecentBookings<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#62\">AdminFacade::__construct<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#69\">AdminFacade::getDashboardStats<\/a>"],[100,1,"<a href=\"facade\/AdminFacade.php.html#79\">AdminFacade::getRecentBookings<\/a>"],[100,1,"<a href=\"observer\/AdminStatsObserver.php.html#5\">AdminStatsObserver::update<\/a>"],[100,1,"<a href=\"observer\/AgencyStatsObserver.php.html#5\">AgencyStatsObserver::update<\/a>"],[100,1,"<a href=\"observer\/BookingSubject.php.html#7\">BookingSubject::attach<\/a>"],[100,2,"<a href=\"observer\/BookingSubject.php.html#11\">BookingSubject::notifyObservers<\/a>"],[100,1,"<a href=\"strategy\/FilterContext.php.html#7\">FilterContext::addStrategy<\/a>"],[100,2,"<a href=\"strategy\/FilterContext.php.html#11\">FilterContext::buildQuery<\/a>"],[100,1,"<a href=\"strategy\/LocationFilter.php.html#7\">LocationFilter::__construct<\/a>"],[100,1,"<a href=\"strategy\/LocationFilter.php.html#11\">LocationFilter::apply<\/a>"],[100,1,"<a href=\"strategy\/PriceMaxFilter.php.html#7\">PriceMaxFilter::__construct<\/a>"],[100,1,"<a href=\"strategy\/PriceMaxFilter.php.html#11\">PriceMaxFilter::apply<\/a>"],[100,1,"<a href=\"strategy\/TypeFilter.php.html#7\">TypeFilter::__construct<\/a>"],[100,1,"<a href=\"strategy\/TypeFilter.php.html#11\">TypeFilter::apply<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
